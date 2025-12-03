@@ -1,4 +1,9 @@
 "use client";
+import { auth } from "@/utils/firebase";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+} from "firebase/auth";
 import { useState } from "react";
 
 interface IFormData {
@@ -6,13 +11,31 @@ interface IFormData {
     password: string;
 }
 
-export default function AuthForm() {
+interface IProps {
+    type: "login" | "register";
+}
+
+export default function AuthForm({ type }: IProps) {
     const [formData, setFormData] = useState<IFormData>({
         email: "",
         password: "",
     });
 
-    const handleSubmit = () => {};
+    const handleSubmit = async () => {
+        if (type === "login") {
+            await signInWithEmailAndPassword(
+                auth,
+                formData.email,
+                formData.password
+            );
+        } else {
+            await createUserWithEmailAndPassword(
+                auth,
+                formData.email,
+                formData.password
+            );
+        }
+    };
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement>,
         inputName: string
@@ -29,7 +52,7 @@ export default function AuthForm() {
             onSubmit={handleSubmit}
         >
             <h1 className="text-white tracking-tight text-3xl font-bold leading-tight text-center pb-6 pt-2">
-                Вход
+                {type === "login" ? "Вход" : "Регистрация"}
             </h1>
             <div className="flex flex-col gap-2">
                 <label
@@ -69,7 +92,7 @@ export default function AuthForm() {
                 type="submit"
                 className="flex w-90 items-center justify-center overflow-hidden rounded-sm h-10 px-5 bg-[#3390EC] text-white font-bold hover:bg-[#2b7bce] transition-colors duration-200"
             >
-                Авторизоваться
+                {type === "login" ? "Войти" : "Зарегистрироваться"}
             </button>
         </form>
     );
