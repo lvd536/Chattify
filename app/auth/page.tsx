@@ -1,3 +1,13 @@
+import AuthForm from "@/components/Auth/Forms/AuthForm";
+
+interface IFormData {
+    [key: string]: string;
+}
+
 export default function page() {
-    return <div>page</div>;
+    return (
+        <div>
+            <AuthForm />
+        </div>
+    );
 }
