@@ -1,5 +1,5 @@
 interface IProps {
-    onClick: () => void;
+    onClick?: () => void;
 }
 
 export default function GoogleButton({ onClick }: IProps) {
