@@ -4,6 +4,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
 } from "firebase/auth";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface IFormData {
@@ -16,6 +17,7 @@ interface IProps {
 }
 
 export default function AuthForm({ type }: IProps) {
+    const router = useRouter();
     const [formData, setFormData] = useState<IFormData>({
         email: "",
         password: "",
@@ -28,12 +30,14 @@ export default function AuthForm({ type }: IProps) {
                 formData.email,
                 formData.password
             );
+            router.push("/home");
         } else {
             await createUserWithEmailAndPassword(
                 auth,
                 formData.email,
                 formData.password
             );
+            router.push("/home");
         }
     };
     const handleInputChange = (

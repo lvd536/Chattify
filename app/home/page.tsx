@@ -1,3 +1,5 @@
+import TestDetails from "@/components/TestDetails";
+
 export default function page() {
-    return <div>Home Page</div>;
+    return <TestDetails />;
 }

@@ -4,7 +4,7 @@ const publicPaths = ["/", "/auth"];
 
 export function middleware(req: NextRequest, _event: NextFetchEvent) {
     const { pathname } = req.nextUrl;
-    const token = req.cookies.get("auth-token")?.value;
+    const token = req.cookies.get("token")?.value;
 
     if (
         publicPaths.some(

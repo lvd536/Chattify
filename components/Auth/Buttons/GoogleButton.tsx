@@ -1,12 +1,15 @@
 import { ensureUserInFirestore } from "@/utils/auth";
 import { auth } from "@/utils/firebase";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 export default function GoogleButton() {
+    const router = useRouter();
     const handleGoogleSignIn = async () => {
         try {
             const user = await signInWithPopup(auth, new GoogleAuthProvider());
             await ensureUserInFirestore(user);
+            router.push("/home");
         } catch (err) {
             console.error(err);
         }
