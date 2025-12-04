@@ -1,7 +1,7 @@
 import NavBar from "@/components/NavBar/NavBar";
 import ChatBody from "@/components/Chat/ChatBody";
 import ChatHead from "@/components/Chat/ChatHead";
-export default function page() {
+export default async function page() {
     return (
         <div className="flex w-full h-screen">
             <NavBar />

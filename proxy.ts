@@ -1,8 +1,8 @@
-import { NextRequest, NextFetchEvent } from "next/server";
+import { NextRequest } from "next/server";
 
 const publicPaths = ["/", "/auth"];
 
-export function middleware(req: NextRequest, _event: NextFetchEvent) {
+export function proxy(req: NextRequest) {
     const { pathname } = req.nextUrl;
     const token = req.cookies.get("token")?.value;
 
