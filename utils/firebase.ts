@@ -6,13 +6,13 @@ import { userStore } from "@/stores/userStore";
 
 function setTokenCookie(token: string | null) {
     if (!token) {
-        document.cookie = `token=; Path=/; Max-Age=0; SameSite=Lax;`;
+        window.document.cookie = `token=; Path=/; Max-Age=0; SameSite=Lax;`;
         return;
     }
 
     const maxAge = 60 * 60;
     const secure = location.protocol === "https:" ? "; Secure" : "";
-    document.cookie = `token=${token}; Path=/; Max-Age=${maxAge}; SameSite=Lax${secure};`;
+    window.document.cookie = `token=${token}; Path=/; Max-Age=${maxAge}; SameSite=Lax${secure};`;
 }
 
 const firebaseConfig = {

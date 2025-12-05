@@ -1,23 +1,33 @@
+"use client";
 import Message from "./Message";
 import MessageInput from "./MessageInput";
-export default function ChatBody() {
+import { useChatMessages } from "@/hooks/useChat";
+
+interface IProps {
+    chatId: string;
+    uid: string;
+}
+export default function ChatBody({ chatId, uid }: IProps) {
+    const { messages, loading, error } = useChatMessages(chatId);
+    if (loading) return <div className="p-10 text-center">Загрузка...</div>;
+    if (error)
+        return <div className="text-red-500">Ошибка: {error.message}</div>;
     return (
         <div className="flex flex-col justify-end h-[calc(100vh-64px)] w-full bg-chat-bg px-20 overflow-y-auto">
             <ul className="flex flex-col gap-4">
-                <Message
-                    text="OMG 😲 do you remember what you did last night
-                                at the work night out?"
-                    time="18:01"
-                    isUser={false}
-                />
-                <Message
-                    text="OMG 😲 do you remember what you did last night
-                                at the work night out?"
-                    time="18:26"
-                    isUser={true}
-                />
+                {messages.map((message) => {
+                    console.log(message);
+                    return (
+                        <Message
+                            key={message.id}
+                            text={message.text || ""}
+                            time={""}
+                            isUser={message.senderId === uid}
+                        />
+                    );
+                })}
             </ul>
-            <MessageInput />
+            <MessageInput chatId={chatId} uid={uid} />
         </div>
     );
 }

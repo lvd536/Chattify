@@ -36,21 +36,27 @@ export default function ChatList({ user }: IProps) {
             users &&
             !chatsLoading &&
             !usersLoading &&
-            users.length > 0 ? (
+            users.length === chats.length ? (
                 chats.map((c, index) => (
                     <Chat
-                        avatarUrl={users[index].photoUrl ?? ""}
+                        avatarUrl={users[index].photoUrl || ""}
                         lastMessage={c.lastMessageText || ""}
                         name={users[index].displayName || ""}
-                        uid={users[index].uid}
-                        key={c.id}
+                        uid={user.uid}
+                        participantUid={users[index].uid}
+                        key={users[index].uid}
                     />
                 ))
             ) : chatsLoading || usersLoading ? (
                 <div>Loading...</div>
-            ) : (
+            ) : chatsError || usersError ? (
                 <div>
                     Error {chatsError?.message} {usersError?.message}
+                    Length {chats?.length} {users?.length}
+                </div>
+            ) : (
+                <div className="flex justify-center text-xl">
+                    Вы еще на начинали чаты!
                 </div>
             )}
         </ul>

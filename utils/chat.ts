@@ -3,51 +3,12 @@ import {
     query,
     where,
     getDocs,
-    limit,
-    orderBy,
+    addDoc,
+    serverTimestamp,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { IUser } from "@/types/IUser";
 import { IChat } from "@/types/IChat";
-import { IMessage } from "@/types/IMessage";
-import { useCollection } from "react-firebase-hooks/firestore";
-
-export async function searchUsers(search: string) {
-    if (!search) return [];
-
-    const usersRef = collection(db, "users");
-
-    const start = search.toLowerCase();
-    const end = start + "\uf8ff";
-
-    const q1 = query(
-        usersRef,
-        where("username", ">=", start),
-        where("username", "<=", end),
-        limit(10)
-    );
-
-    const q2 = query(
-        usersRef,
-        where("displayName", ">=", start),
-        where("displayName", "<=", end),
-        limit(10)
-    );
-
-    const [snap1, snap2] = await Promise.all([getDocs(q1), getDocs(q2)]);
-
-    const users = [...snap1.docs, ...snap2.docs]
-        .map((d) => {
-            const data = d.data() as Omit<IUser, "uid">;
-            return { uid: d.id, ...data } satisfies IUser;
-        })
-        .reduce<IUser[]>((acc, item) => {
-            if (!acc.some((x) => x.uid === item.uid)) acc.push(item);
-            return acc;
-        }, []);
-
-    return users;
-}
 
 export async function getUserChats(uid: string) {
     const q = query(
@@ -63,45 +24,6 @@ export async function getUserChats(uid: string) {
             ...doc.data(),
         })) as IChat[]) ?? []
     );
-}
-
-export function useChatMessages(chatId: string) {
-    const messagesRef = collection(db, "messages");
-
-    const q = query(
-        messagesRef,
-        where("chatId", "==", chatId),
-        orderBy("createdAt", "asc")
-    );
-
-    const [snap, loading, error] = useCollection(q);
-
-    const messages =
-        (snap?.docs.map((d) => ({
-            id: d.id,
-            ...d.data(),
-        })) as IMessage[]) ?? [];
-
-    return { messages, loading, error };
-}
-
-export function useLastMessage(chatId: string) {
-    const ref = collection(db, "messages");
-
-    const q = query(
-        ref,
-        where("chatId", "==", chatId),
-        orderBy("createdAt", "desc"),
-        limit(1)
-    );
-
-    const [snap] = useCollection(q);
-
-    const message = snap?.docs[0]
-        ? { id: snap.docs[0].id, ...snap.docs[0].data() }
-        : null;
-
-    return message as IMessage | null;
 }
 
 export async function getUser(uid: string) {
@@ -140,4 +62,51 @@ export async function getChatParticipant(
     }
 
     return null;
+}
+
+export async function checkChatExists(uid1: string, uid2: string) {
+    const q = query(
+        collection(db, "chats"),
+        where("participants", "array-contains", uid1)
+    );
+
+    const snap = await getDocs(q);
+
+    const chat = snap.docs.find((doc) => {
+        const p = doc.data().participants;
+        return p.includes(uid2);
+    });
+
+    if (chat) return chat.id;
+
+    return await createChat(uid1, uid2);
+}
+
+export async function createChat(uid1: string, uid2: string) {
+    const chatObj = {
+        createdAt: serverTimestamp(),
+        lastMessageAt: "",
+        lastMessageText: "",
+        participants: [uid1, uid2],
+    };
+    console.log(`uid: ${uid1} other: ${uid2}`);
+    const chat = await addDoc(collection(db, "chats"), chatObj);
+    if (chat) return chat.id;
+    return false;
+}
+
+export async function sendMessage(
+    chatId: string,
+    senderId: string,
+    message: string
+) {
+    const newMessage = {
+        chatId: chatId,
+        senderId: senderId,
+        text: message,
+        type: "text",
+        createdAt: serverTimestamp(),
+        deleted: false,
+    };
+    await addDoc(collection(db, "messages"), newMessage);
 }

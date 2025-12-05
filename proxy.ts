@@ -6,6 +6,12 @@ export function proxy(req: NextRequest) {
     const { pathname } = req.nextUrl;
     const token = req.cookies.get("token")?.value;
 
+    if (pathname === "/" && token) {
+        const url = req.nextUrl.clone();
+        url.pathname = "/home";
+        return Response.redirect(url);
+    }
+
     if (
         publicPaths.some(
             (path) => pathname === path || pathname.startsWith(path + "/")

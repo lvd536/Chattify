@@ -4,6 +4,7 @@ import ChatList from "./ChatList";
 import NavHead from "./NavHead";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/utils/firebase";
+import UserList from "./UserList";
 
 export default function NavBar() {
     const [searchValue, setSearchValue] = useState<string>("");
@@ -21,7 +22,7 @@ export default function NavBar() {
                         setSearchValue={setSearchValue}
                     />
                     {onSearch ? (
-                        <ChatList user={user!} />
+                        <UserList searchValue={searchValue} uid={user!.uid} />
                     ) : (
                         <ChatList user={user!} />
                     )}

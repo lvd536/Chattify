@@ -9,8 +9,8 @@ interface IProps {
 
 export default function Message({ text, time, isUser }: IProps) {
     const messageStyle = isUser
-        ? "self-end bg-user-message-bg rounded-xl p-2 max-w-4/6"
-        : "bg-message-bg rounded-xl p-2 max-w-4/6";
+        ? "self-end bg-user-message-bg rounded-xl p-2 min-w-25 max-w-4/6"
+        : "bg-message-bg rounded-xl p-2 min-w-25 max-w-4/6";
     const timeStyle = isUser
         ? "text-white/90 text-xs"
         : "text-[#707991] text-xs";

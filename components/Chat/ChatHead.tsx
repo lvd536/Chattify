@@ -1,21 +1,26 @@
+"use client";
+import { useParticipant } from "@/hooks/useChat";
 import Avatar from "./Avatar";
 import Details from "./Details";
 import Name from "./Name";
 
 interface IProps {
-    name: string;
-    avatarUrl: string;
-    lastSeen: string;
+    participantUid: string;
 }
 
-export default function ChatHead({ name, avatarUrl, lastSeen }: IProps) {
+export default function ChatHead({ participantUid }: IProps) {
+    const participant = useParticipant(participantUid);
     return (
         <div className="flex items-center justify-between h-16 border-b border-b-white/20">
             <div className="flex items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300">
-                <Avatar name={name} src={avatarUrl} alt="User Avatar" />
+                <Avatar
+                    name={participant?.displayName || "A"}
+                    src={participant?.photoUrl || ""}
+                    alt="User Avatar"
+                />
                 <div>
-                    <Name>{name}</Name>
-                    <Details>last seen in {lastSeen}</Details>
+                    <Name>{participant?.displayName}</Name>
+                    <Details>last seen in {""}</Details>
                 </div>
             </div>
             <svg

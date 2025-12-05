@@ -8,13 +8,20 @@ interface IProps {
     avatarUrl: string;
     lastMessage: string;
     uid: string;
+    participantUid?: string;
 }
 
-export default function Chat({ name, avatarUrl, lastMessage, uid }: IProps) {
+export default function Chat({
+    name,
+    avatarUrl,
+    lastMessage,
+    uid,
+    participantUid,
+}: IProps) {
     return (
         <li>
             <Link
-                href={`/home/chat/${uid}`}
+                href={`/home/chat/${uid}_${participantUid}`}
                 className="flex items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300"
             >
                 <Avatar alt="User Avatar" src={avatarUrl} name={name} />

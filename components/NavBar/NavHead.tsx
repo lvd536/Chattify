@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 interface IProps {
     searchValue: string;
@@ -11,6 +11,12 @@ export default function NavHead({
     setSearchValue,
     setOnSearch,
 }: IProps) {
+    useEffect(() => {
+        if (searchValue.length <= 0) {
+            setOnSearch(false);
+        }
+    }, [searchValue.length, setOnSearch]);
+
     return (
         <div className="flex gap-2 justify-between items-center mt-3 px-4">
             <svg
@@ -55,7 +61,11 @@ export default function NavHead({
             <form
                 className="flex relative"
                 action=""
-                onSubmit={() => setOnSearch(true)}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    if (searchValue.length <= 0) return
+                    setOnSearch(true);
+                }}
             >
                 <input
                     type="search"
