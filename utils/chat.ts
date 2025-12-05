@@ -5,6 +5,8 @@ import {
     getDocs,
     addDoc,
     serverTimestamp,
+    updateDoc,
+    doc,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { IUser } from "@/types/IUser";
@@ -108,5 +110,11 @@ export async function sendMessage(
         createdAt: serverTimestamp(),
         deleted: false,
     };
-    await addDoc(collection(db, "messages"), newMessage);
+    const result = await addDoc(collection(db, "messages"), newMessage);
+    if (result) {
+        await updateDoc(doc(db, "chats", chatId), {
+            lastMessageAt: serverTimestamp(),
+            lastMessageText: message,
+        });
+    }
 }

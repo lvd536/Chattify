@@ -6,7 +6,8 @@ import Name from "../Chat/Name";
 interface IProps {
     name: string;
     avatarUrl: string;
-    lastMessage: string;
+    lastMessageAt: string;
+    lastMessageText: string;
     uid: string;
     participantUid?: string;
 }
@@ -14,7 +15,8 @@ interface IProps {
 export default function Chat({
     name,
     avatarUrl,
-    lastMessage,
+    lastMessageAt,
+    lastMessageText,
     uid,
     participantUid,
 }: IProps) {
@@ -25,9 +27,11 @@ export default function Chat({
                 className="flex items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300"
             >
                 <Avatar alt="User Avatar" src={avatarUrl} name={name} />
-                <div>
+                <div className="flex flex-col w-[calc(100%-60px)]">
                     <Name>{name}</Name>
-                    <Details>{lastMessage}</Details>
+                    <Details lastMessageAt={lastMessageAt}>
+                        {lastMessageText}
+                    </Details>
                 </div>
             </Link>
         </li>

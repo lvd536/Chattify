@@ -1,4 +1,4 @@
-import { FieldValue } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 
 export interface IUser {
     uid: string;
@@ -7,6 +7,6 @@ export interface IUser {
     email: string | null;
     photoUrl?: string | null;
     bio?: string | null;
-    createdAt: FieldValue;
-    lastSeenAt?: FieldValue;
+    createdAt: Timestamp;
+    lastSeenAt?: Timestamp;
 }

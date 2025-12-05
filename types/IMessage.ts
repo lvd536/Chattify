@@ -1,11 +1,11 @@
-import { FieldValue } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 
 export interface IMessage {
     id: string;
     senderId: string;
     text?: string | null;
     type?: "text" | "image" | "system";
-    createdAt: FieldValue;
+    createdAt: Timestamp;
     deleted?: boolean;
     chatId: string;
 }

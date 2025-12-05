@@ -21,7 +21,7 @@ export default function ChatBody({ chatId, uid }: IProps) {
                         <Message
                             key={message.id}
                             text={message.text || ""}
-                            time={""}
+                            time={message.createdAt.toDate().toDateString()}
                             isUser={message.senderId === uid}
                         />
                     );

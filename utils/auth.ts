@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc, setDoc, serverTimestamp, Timestamp } from "firebase/firestore";
 import { db } from "./firebase";
 import { UserCredential } from "firebase/auth";
 import { userStore } from "@/stores/userStore";
@@ -14,8 +14,8 @@ export const ensureUserInFirestore = async (firebaseUser: UserCredential) => {
             email: firebaseUser.user.email ?? null,
             displayName: firebaseUser.user.displayName ?? "",
             photoURL: firebaseUser.user.photoURL ?? "",
-            createdAt: serverTimestamp(),
-            lastSeen: serverTimestamp(),
+            createdAt: serverTimestamp() as Timestamp,
+            lastSeen: serverTimestamp() as Timestamp,
             description: "",
             username:
                 firebaseUser.user.displayName
