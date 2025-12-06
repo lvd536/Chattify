@@ -40,7 +40,7 @@ export default function ChatList({ user }: IProps) {
                 chats.map((c, index) => (
                     <Chat
                         avatarUrl={users[index].photoUrl || ""}
-                        lastMessageAt={c.lastMessageAt.toDate().toDateString()}
+                        lastMessageAt={c.lastMessageAt?.toDate().toDateString()}
                         lastMessageText={c.lastMessageText}
                         name={users[index].displayName || ""}
                         uid={user.uid}
