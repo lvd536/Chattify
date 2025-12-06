@@ -63,14 +63,14 @@ export default function NavHead({
                 action=""
                 onSubmit={(e) => {
                     e.preventDefault();
-                    if (searchValue.length <= 0) return
+                    if (searchValue.length <= 0) return;
                     setOnSearch(true);
                 }}
             >
                 <input
                     type="search"
                     placeholder="Search..."
-                    className="h-8 p-2 lg:p-4 min-w-20 items-center rounded-3xl bg-search-bar"
+                    className="hidden sm:block h-8 p-2 lg:p-4 min-w-20 items-center rounded-3xl bg-search-bar"
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                 />
@@ -81,7 +81,7 @@ export default function NavHead({
                         viewBox="0 -0.5 25 25"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="absolute right-1.5 top-0 bottom-0"
+                        className="hidden lg:block absolute right-1.5 top-0 bottom-0"
                     >
                         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                         <g
