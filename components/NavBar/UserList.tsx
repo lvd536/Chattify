@@ -18,7 +18,7 @@ export default function UserList({ searchValue, uid }: IProps) {
             {users && !loading && !error ? (
                 users.map((c, index) => (
                     <User
-                        avatarUrl={users[index].photoUrl ?? ""}
+                        avatarUrl={users[index].photoURL ?? ""}
                         name={users[index].displayName || ""}
                         uid={uid}
                         participantUid={users[index].uid}

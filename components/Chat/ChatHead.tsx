@@ -15,7 +15,7 @@ export default function ChatHead({ participantUid }: IProps) {
             <div className="flex items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300">
                 <Avatar
                     name={participant?.displayName || "A"}
-                    src={participant?.photoUrl || ""}
+                    src={participant?.photoURL || ""}
                     alt="User Avatar"
                 />
                 <div>

@@ -14,7 +14,7 @@ export default function Avatar({ src, alt, name }: IProps) {
                     alt={alt}
                     width={96}
                     height={96}
-                    className="rounded-full"
+                    className="rounded-full w-24 h-24"
                 />
             ) : (
                 <div className="flex items-center justify-center w-24 h-24 bg-green-400 rounded-full">

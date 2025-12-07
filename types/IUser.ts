@@ -5,8 +5,8 @@ export interface IUser {
     username?: string;
     displayName?: string;
     email: string | null;
-    photoUrl?: string | null;
-    bio?: string | null;
+    photoURL?: string | null;
+    description?: string | null;
     createdAt: Timestamp;
     lastSeenAt?: Timestamp;
 }
