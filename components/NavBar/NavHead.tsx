@@ -1,3 +1,5 @@
+import { User } from "firebase/auth";
+import Link from "next/link";
 import { Dispatch, SetStateAction, useEffect } from "react";
 
 interface IProps {
@@ -18,46 +20,7 @@ export default function NavHead({
     }, [searchValue.length, setOnSearch]);
 
     return (
-        <div className="flex gap-2 justify-between items-center mt-3 px-4">
-            <svg
-                width="30"
-                height="30"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                <g
-                    id="SVGRepo_tracerCarrier"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                    {" "}
-                    <g clipPath="url(#clip0_429_11066)">
-                        {" "}
-                        <path
-                            d="M3 6.00092H21M3 12.0009H21M3 18.0009H21"
-                            stroke="#707991"
-                            strokeWidth="1.7"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        ></path>{" "}
-                    </g>{" "}
-                    <defs>
-                        {" "}
-                        <clipPath id="clip0_429_11066">
-                            {" "}
-                            <rect
-                                width="24"
-                                height="24"
-                                fill="white"
-                                transform="translate(0 0.000915527)"
-                            ></rect>{" "}
-                        </clipPath>{" "}
-                    </defs>{" "}
-                </g>
-            </svg>
+        <div className="flex gap-2 justify-center items-center mt-3 px-4">
             <form
                 className="flex relative"
                 action=""
@@ -70,18 +33,20 @@ export default function NavHead({
                 <input
                     type="search"
                     placeholder="Search..."
-                    className="hidden sm:block h-8 p-2 lg:p-4 min-w-20 items-center rounded-3xl bg-search-bar"
+                    className="block h-8 p-2 lg:p-4 min-w-20 items-center rounded-lg bg-search-bar"
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                 />
-                <button type="submit">
+                <button
+                    type="submit"
+                    className="block absolute right-1.5 top-0 bottom-0"
+                >
                     <svg
                         width="30px"
                         height="30px"
                         viewBox="0 -0.5 25 25"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="hidden lg:block absolute right-1.5 top-0 bottom-0"
                     >
                         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                         <g

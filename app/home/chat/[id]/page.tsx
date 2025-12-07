@@ -1,6 +1,5 @@
 import ChatBody from "@/components/Chat/ChatBody";
 import ChatHead from "@/components/Chat/ChatHead";
-import NavBar from "@/components/NavBar/NavBar";
 import { checkChatExists } from "@/utils/chat";
 
 type Params = {

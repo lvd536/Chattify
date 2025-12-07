@@ -10,7 +10,7 @@ export default function ChatList({ user }: IProps) {
     const { chats, users, loading, error } = useChatListData(user.uid);
     const success = chats && users && !loading;
     return (
-        <ul className="mt-5">
+        <ul className="mt-5 h-full">
             {success && users.length === chats.length ? (
                 chats.map((c, index) => (
                     <Chat
