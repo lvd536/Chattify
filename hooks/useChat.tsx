@@ -101,3 +101,46 @@ export function useParticipant(participantUid: string) {
 
     return participant;
 }
+
+export function useChatListData(uid: string) {
+    const chatsQuery = useMemo(
+        () =>
+            query(
+                collection(db, "chats"),
+                where("participants", "array-contains", uid)
+            ),
+        [uid]
+    );
+
+    const [chats, chatsLoading, chatsError] = useCollectionData(chatsQuery);
+
+    const otherParticipantUids = useMemo(() => {
+        if (!chats) return [];
+
+        const allUids = chats.flatMap((chat) => chat.participants);
+        const uniqueUids = [
+            ...new Set(allUids.filter((pUid) => pUid !== uid && pUid)),
+        ];
+
+        return uniqueUids;
+    }, [chats, uid]);
+
+    const usersQuery = useMemo(() => {
+        if (otherParticipantUids.length === 0) return null;
+        return query(
+            collection(db, "users"),
+            where("uid", "in", otherParticipantUids.slice(0, 10))
+        );
+    }, [otherParticipantUids]);
+
+    const [users, usersLoading, usersError] = useCollectionData(usersQuery, {
+        snapshotListenOptions: { includeMetadataChanges: true },
+    });
+
+    return {
+        chats,
+        users,
+        loading: chatsLoading || (Boolean(usersQuery) && usersLoading),
+        error: chatsError ?? usersError ?? null,
+    };
+}

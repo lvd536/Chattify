@@ -1,42 +1,17 @@
 import Chat from "./Chat";
-import { useCollectionData } from "react-firebase-hooks/firestore";
-import { collection, query, where } from "firebase/firestore";
-import { db } from "@/utils/firebase";
 import { User } from "firebase/auth";
+import { useChatListData } from "@/hooks/useChat";
 
 interface IProps {
     user: User;
 }
 
 export default function ChatList({ user }: IProps) {
-    const chatsQuery = query(
-        collection(db, "chats"),
-        where("participants", "array-contains", user.uid)
-    );
-    const [chats, chatsLoading, chatsError] = useCollectionData(chatsQuery);
-    const allParticipantUids = chats
-        ? chats.flatMap((chat) => chat.participants)
-        : [];
-    const otherParticipantUids = [
-        ...new Set(allParticipantUids.filter((uid) => uid !== user.uid && uid)),
-    ];
-    const usersQuery =
-        otherParticipantUids.length > 0
-            ? query(
-                  collection(db, "users"),
-                  where("uid", "in", otherParticipantUids)
-              )
-            : null;
-    const [users, usersLoading, usersError] = useCollectionData(usersQuery, {
-        snapshotListenOptions: { includeMetadataChanges: true },
-    });
+    const { chats, users, loading, error } = useChatListData(user.uid);
+    const success = chats && users && !loading;
     return (
         <ul className="mt-5">
-            {chats &&
-            users &&
-            !chatsLoading &&
-            !usersLoading &&
-            users.length === chats.length ? (
+            {success && users.length === chats.length ? (
                 chats.map((c, index) => (
                     <Chat
                         avatarUrl={users[index].photoUrl || ""}
@@ -48,11 +23,11 @@ export default function ChatList({ user }: IProps) {
                         key={users[index].uid}
                     />
                 ))
-            ) : chatsLoading || usersLoading ? (
+            ) : loading ? (
                 <div>Loading...</div>
-            ) : chatsError || usersError ? (
+            ) : error ? (
                 <div>
-                    Error {chatsError?.message} {usersError?.message}
+                    Error {error?.message}
                     Length {chats?.length} {users?.length}
                 </div>
             ) : (
