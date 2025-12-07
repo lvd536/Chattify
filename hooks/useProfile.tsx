@@ -2,6 +2,7 @@ import {
     collection,
     doc,
     getDoc,
+    getDocs,
     query,
     updateDoc,
     where,
@@ -39,9 +40,22 @@ export async function getProfile(uid: string) {
 }
 
 export async function setProfile(uid: string, data: IProfileEditData) {
-    try {
-        const userRef = doc(db, "users", uid);
+    const userRef = doc(db, "users", uid);
 
+    const usernameQuery = query(
+        collection(db, "users"),
+        where("username", "==", data.username)
+    );
+    const usernameSnapshot = await getDocs(usernameQuery);
+    const userDoc = await getDoc(userRef);
+    const currentUsername = userDoc.data()?.username;
+
+    if (!usernameSnapshot.empty && currentUsername !== data.username) {
+        alert("Username is already taken");
+        throw new Error("Username is already taken");
+    }
+
+    try {
         await updateDoc(userRef, data as { [x: string]: any });
     } catch (error) {
         console.error("Error updating user profile: ", error);
