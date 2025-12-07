@@ -17,13 +17,28 @@ export default function EditForm({ user }: IProps) {
         description: user?.description,
         photoURL: user?.photoURL,
     });
+    function checkImage(url: string, cb: (ok: boolean) => void) {
+        const img = new Image();
+        img.onload = () => cb(true);
+        img.onerror = () => cb(false);
+        img.src = url;
+    }
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        checkImage(formData.photoURL, (ok) => {
+            if (!ok && formData.photoURL !== "") {
+                alert("Invalid image url");
+                return;
+            }
+            setProfile(user?.uid, formData);
+            window.location.reload();
+        });
+    };
     return (
         <form
             action=""
             className="flex flex-col gap-2 items-center justify-center mt-10 w-full px-8"
-            onSubmit={() => {
-                setProfile(user?.uid, formData);
-            }}
+            onSubmit={handleSubmit}
         >
             <h1 className="self-start font-semibold border-b border-b-white/30 w-full pb-3">
                 Personal Information
