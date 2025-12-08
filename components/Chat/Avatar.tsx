@@ -14,11 +14,13 @@ export default function Avatar({ src, alt, name }: IProps) {
                     alt={alt}
                     width={48}
                     height={48}
-                    className="rounded-full w-12 h-12"
+                    className="rounded-full w-8 h-8 sm:w-11 sm:h-11"
                 />
             ) : (
-                <div className="flex items-center justify-center w-12 h-12 bg-green-400 rounded-full">
-                    <p className="font-extrabold text-xl">{name[0]}</p>
+                <div className="flex items-center justify-center w-8 h-8 sm:w-11 sm:h-11 bg-green-400 rounded-full">
+                    <p className="font-extrabold text-lg sm:text-xl">
+                        {name[0]}
+                    </p>
                 </div>
             )}
         </>

@@ -3,5 +3,5 @@ interface IProps {
 }
 
 export default function Name({ children }: IProps) {
-    return <h1 className="font-semibold text-white/90">{children}</h1>;
+    return <h1 className="font-semibold text-white/90 text-sm sm:text-base">{children}</h1>;
 }
