@@ -12,17 +12,24 @@ export default function ChatList({ user }: IProps) {
     return (
         <ul className="mt-5 h-full">
             {success && users.length === chats.length ? (
-                chats.map((c, index) => (
-                    <Chat
-                        avatarUrl={users[index].photoUrl || ""}
-                        lastMessageAt={c.lastMessageAt?.toDate().toDateString()}
-                        lastMessageText={c.lastMessageText}
-                        name={users[index].displayName || ""}
-                        uid={user.uid}
-                        participantUid={users[index].uid}
-                        key={users[index].uid}
-                    />
-                ))
+                chats.map((c, index) => {
+                    const messageDate =
+                        c.lastMessageAt.toDate().toDateString() !==
+                        new Date().toDateString()
+                            ? c.lastMessageAt.toDate().toDateString()
+                            : c.lastMessageAt?.toDate().toLocaleTimeString();
+                    return (
+                        <Chat
+                            avatarUrl={users[index].photoUrl || ""}
+                            lastMessageAt={messageDate}
+                            lastMessageText={c.lastMessageText}
+                            name={users[index].displayName || ""}
+                            uid={user.uid}
+                            participantUid={users[index].uid}
+                            key={users[index].uid}
+                        />
+                    );
+                })
             ) : loading ? (
                 <div>Loading...</div>
             ) : error ? (
