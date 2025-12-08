@@ -39,7 +39,7 @@ export async function getProfile(uid: string) {
     }
 }
 
-export async function setProfile(uid: string, data: IProfileEditData) {
+export async function setProfile(uid: string, data: Partial<IProfileEditData>) {
     const userRef = doc(db, "users", uid);
 
     const usernameQuery = query(
@@ -56,7 +56,7 @@ export async function setProfile(uid: string, data: IProfileEditData) {
     }
 
     try {
-        await updateDoc(userRef, data as { [x: string]: any });
+        await updateDoc(userRef, data);
     } catch (error) {
         console.error("Error updating user profile: ", error);
         throw error;
