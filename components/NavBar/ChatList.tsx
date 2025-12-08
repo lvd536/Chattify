@@ -20,7 +20,7 @@ export default function ChatList({ user }: IProps) {
                             : c.lastMessageAt?.toDate().toLocaleTimeString();
                     return (
                         <Chat
-                            avatarUrl={users[index].photoUrl || ""}
+                            avatarUrl={users[index].photoURL || ""}
                             lastMessageAt={messageDate}
                             lastMessageText={c.lastMessageText}
                             name={users[index].displayName || ""}

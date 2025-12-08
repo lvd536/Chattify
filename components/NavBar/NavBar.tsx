@@ -5,8 +5,6 @@ import NavHead from "./NavHead";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/utils/firebase";
 import UserList from "./UserList";
-import Avatar from "../Chat/Avatar";
-import Link from "next/link";
 import UserProfile from "./UserProfile";
 
 export default function NavBar() {
