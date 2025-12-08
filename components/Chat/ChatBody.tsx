@@ -16,14 +16,16 @@ export default function ChatBody({ chatId, uid }: IProps) {
         <div className="flex flex-col justify-end h-[calc(100vh-64px)] w-full bg-chat-bg px-20 overflow-x-hidden">
             <ul className="flex flex-col gap-4 chat-scroll">
                 {messages.map((message) => {
-                    console.log(message);
+                    const messageDate =
+                        message.createdAt?.toDate().toDateString() !==
+                        new Date().toDateString()
+                            ? message.createdAt?.toDate().toDateString()
+                            : message.createdAt?.toDate().toLocaleTimeString();
                     return (
                         <Message
                             key={message.id}
                             text={message.text || ""}
-                            time={
-                                message.createdAt?.toDate().toDateString() || ""
-                            }
+                            time={messageDate || ""}
                             isUser={message.senderId === uid}
                         />
                     );
