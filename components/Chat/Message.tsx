@@ -16,7 +16,7 @@ export default function Message({ text, time, isUser }: IProps) {
         : "text-[#707991] text-xs";
     return (
         <li className={messageStyle}>
-            <p className="max-w-100 text-justify">{text}</p>
+            <p className="max-w-100 text-justify text-wrap break-all">{text}</p>
             <div className="flex justify-end gap-2">
                 <p className={timeStyle}>{time}</p>
                 <Image alt="" src={mark}></Image>

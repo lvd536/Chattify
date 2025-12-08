@@ -13,8 +13,8 @@ export default function ChatBody({ chatId, uid }: IProps) {
     if (error)
         return <div className="text-red-500">Ошибка: {error.message}</div>;
     return (
-        <div className="flex flex-col justify-end h-[calc(100vh-64px)] w-full bg-chat-bg px-20 overflow-y-auto">
-            <ul className="flex flex-col gap-4">
+        <div className="flex flex-col justify-end h-[calc(100vh-64px)] w-full bg-chat-bg px-20 overflow-x-hidden">
+            <ul className="flex flex-col gap-4 chat-scroll">
                 {messages.map((message) => {
                     console.log(message);
                     return (
