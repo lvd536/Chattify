@@ -8,5 +8,5 @@ export interface IUser {
     photoURL?: string | null;
     description?: string | null;
     createdAt: Timestamp;
-    lastSeenAt?: Timestamp;
+    lastSeen?: Timestamp;
 }

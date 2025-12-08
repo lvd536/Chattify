@@ -11,7 +11,7 @@ interface IProps {
 export default function ChatHead({ participantUid }: IProps) {
     const participant = useParticipant(participantUid);
     return (
-        <div className="flex items-center justify-between h-16 border-b border-b-white/20">
+        <div className="flex items-center justify-between h-16 border-b border-b-white/20 px-3">
             <div className="flex items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300">
                 <Avatar
                     name={participant?.displayName || "A"}
@@ -20,7 +20,16 @@ export default function ChatHead({ participantUid }: IProps) {
                 />
                 <div>
                     <Name>{participant?.displayName}</Name>
-                    <Details>last seen in {""}</Details>
+                    <Details>
+                        last seen in{" "}
+                        {participant?.lastSeen?.toDate() === new Date()
+                            ? participant?.lastSeen
+                                  ?.toDate()
+                                  .toLocaleTimeString()
+                            : participant?.lastSeen
+                                  ?.toDate()
+                                  .toLocaleDateString()}
+                    </Details>
                 </div>
             </div>
             <svg

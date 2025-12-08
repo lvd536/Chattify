@@ -14,9 +14,9 @@ export default function ChatList({ user }: IProps) {
             {success && users.length === chats.length ? (
                 chats.map((c, index) => {
                     const messageDate =
-                        c.lastMessageAt.toDate().toDateString() !==
+                        c.lastMessageAt?.toDate().toDateString() !==
                         new Date().toDateString()
-                            ? c.lastMessageAt.toDate().toDateString()
+                            ? c.lastMessageAt?.toDate().toDateString()
                             : c.lastMessageAt?.toDate().toLocaleTimeString();
                     return (
                         <Chat

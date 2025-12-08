@@ -3,6 +3,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getUser } from "./chat";
 import { userStore } from "@/stores/userStore";
+import { updateUserActiveStatus } from "./auth";
 
 function setTokenCookie(token: string | null) {
     if (!token) {
@@ -26,6 +27,7 @@ const firebaseConfig = {
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+let interval: NodeJS.Timeout | null = null;
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
@@ -35,6 +37,10 @@ onAuthStateChanged(auth, async (user) => {
         const currentUser = await getUser(user.uid);
         userStore.getState().setUser(currentUser);
         setTokenCookie(idToken);
+        if (interval) clearInterval(interval);
+        interval = setInterval(async () => {
+            await updateUserActiveStatus(user.uid);
+        }, 10000);
     } else {
         userStore.getState().setUser(null);
         setTokenCookie("");

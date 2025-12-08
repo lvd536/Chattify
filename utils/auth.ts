@@ -1,4 +1,10 @@
-import { doc, getDoc, setDoc, serverTimestamp, Timestamp } from "firebase/firestore";
+import {
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp,
+    Timestamp,
+} from "firebase/firestore";
 import { db } from "./firebase";
 import { UserCredential } from "firebase/auth";
 import { userStore } from "@/stores/userStore";
@@ -24,5 +30,20 @@ export const ensureUserInFirestore = async (firebaseUser: UserCredential) => {
         };
         await setDoc(userRef, user);
         userStore.getState().setUser(user);
+    }
+};
+
+export const updateUserActiveStatus = async (uid: string) => {
+    const userRef = doc(db, "users", uid);
+    try {
+        await setDoc(
+            userRef,
+            {
+                lastSeen: serverTimestamp(),
+            },
+            { merge: true }
+        );
+    } catch (error) {
+        console.error("Error updating user active status:", error);
     }
 };
