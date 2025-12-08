@@ -31,7 +31,6 @@ export default function EditForm({ user }: IProps) {
                 return;
             }
             setProfile(user?.uid, formData);
-            window.location.reload();
         });
     };
     return (
@@ -97,7 +96,6 @@ export default function EditForm({ user }: IProps) {
                 type="text"
                 name="photoUrl"
                 id="photoUrl"
-                required
                 className="w-full h-10 rounded-lg bg-[#283039] border-none text-white px-4 focus:ring-1 placeholder:text-[#9dabb9] transition-all duration-300"
                 value={formData.photoURL}
                 onChange={(e) => {

@@ -13,11 +13,12 @@ export default function ChatList({ user }: IProps) {
         <ul className="mt-5 h-full">
             {success && users.length === chats.length ? (
                 chats.map((c, index) => {
-                    const messageDate =
-                        c.lastMessageAt?.toDate().toDateString() !==
-                        new Date().toDateString()
+                    const messageDate = c.lastMessageAt
+                        ? c.lastMessageAt?.toDate().toDateString() !==
+                          new Date().toDateString()
                             ? c.lastMessageAt?.toDate().toDateString()
-                            : c.lastMessageAt?.toDate().toLocaleTimeString();
+                            : c.lastMessageAt?.toDate().toLocaleTimeString()
+                        : "";
                     return (
                         <Chat
                             avatarUrl={users[index].photoURL || ""}

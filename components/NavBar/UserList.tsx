@@ -14,7 +14,7 @@ export default function UserList({ searchValue, uid }: IProps) {
         console.log(users);
     }, [users]);
     return (
-        <ul className="hidden sm:block mt-5 h-full">
+        <ul className="sm:block mt-5 h-full">
             {users && !loading && !error ? (
                 users.map((c, index) => (
                     <User
