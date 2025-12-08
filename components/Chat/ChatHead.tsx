@@ -5,14 +5,18 @@ import Details from "./Details";
 import Name from "./Name";
 import { IUser } from "@/types/IUser";
 import { useEffect, useState } from "react";
+import Actions from "./Actions";
+import Link from "next/link";
 
 interface IProps {
     participantUid: string;
+    chatId: string;
 }
 
-export default function ChatHead({ participantUid }: IProps) {
+export default function ChatHead({ participantUid, chatId }: IProps) {
     const participant = useParticipant(participantUid);
     const [lastSeenAt, setLastSeenAt] = useState<string>("Loading...");
+    const [isActionsOpen, setIsActionsOpen] = useState<boolean>();
 
     function formatLastSeen(participant: IUser | undefined) {
         if (!participant || !participant.lastSeen) return "Loading...";
@@ -44,7 +48,31 @@ export default function ChatHead({ participantUid }: IProps) {
     return (
         <>
             {participant ? (
-                <div className="flex items-center justify-between h-16 border-b border-b-white/20 px-3">
+                <div className="flex relative items-center justify-between h-16 border-b border-b-white/20 px-3">
+                    <Link href={"/home"}>
+                        <svg
+                            width="34px"
+                            height="34px"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                            <g
+                                id="SVGRepo_tracerCarrier"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            ></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M14.5 17L9.5 12L14.5 7"
+                                    stroke="#949dac"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                ></path>{" "}
+                            </g>
+                        </svg>
+                    </Link>
                     <div className="flex items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300">
                         <Avatar
                             name={participant.displayName || "A"}
@@ -61,6 +89,7 @@ export default function ChatHead({ participantUid }: IProps) {
                         className="w-5 h-5"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="#949dac"
+                        onClick={() => setIsActionsOpen((prev) => !prev)}
                     >
                         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                         <g
@@ -75,6 +104,7 @@ export default function ChatHead({ participantUid }: IProps) {
                             ></path>
                         </g>
                     </svg>
+                    {isActionsOpen && <Actions chatId={chatId} />}
                 </div>
             ) : (
                 <div>Loading...</div>

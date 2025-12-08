@@ -7,7 +7,9 @@ export default function HomeLayout({
 }>) {
     return (
         <div className="flex">
-            <NavBar />
+            <div className="hidden sm:block w-full sm:w-4/12">
+                <NavBar />
+            </div>
             {children}
         </div>
     );

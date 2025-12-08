@@ -8,6 +8,7 @@ import {
     updateDoc,
     doc,
     writeBatch,
+    deleteDoc,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { IUser } from "@/types/IUser";
@@ -138,5 +139,14 @@ export async function markMessagesAsRead(messageIds: string[]) {
         console.log("Все сообщения успешно обновлены как прочитанные.");
     } catch (error) {
         console.error("Ошибка при пакетном обновлении сообщений: ", error);
+    }
+}
+
+export async function deleteChat(chatId: string) {
+    try {
+        const confirmed = confirm("Are you shure to delete this chat?");
+        if (confirmed) await deleteDoc(doc(db, "chats", chatId));
+    } catch (error) {
+        console.error("Error deleting chat: ", error);
     }
 }

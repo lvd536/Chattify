@@ -57,6 +57,7 @@ export async function setProfile(uid: string, data: Partial<IProfileEditData>) {
 
     try {
         await updateDoc(userRef, data);
+        window.location.reload();
     } catch (error) {
         console.error("Error updating user profile: ", error);
         throw error;

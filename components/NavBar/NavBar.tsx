@@ -12,7 +12,7 @@ export default function NavBar() {
     const [onSearch, setOnSearch] = useState<boolean>(false);
     const [user, loading, error] = useAuthState(auth);
     return (
-        <div className="flex flex-col sm:w-4/12 h-screen border-r border-r-white/20">
+        <div className="flex flex-col h-screen border-r border-r-white/20">
             {loading && !user ? (
                 <div>loading...</div>
             ) : !error && !loading && user ? (
