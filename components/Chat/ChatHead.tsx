@@ -48,7 +48,7 @@ export default function ChatHead({ participantUid, chatId }: IProps) {
     return (
         <>
             {participant ? (
-                <div className="flex relative items-center justify-between h-16 border-b border-b-white/20 px-3">
+                <div className="flex relative items-center justify-between h-[6vh] border-b border-b-white/20 px-3">
                     <Link href={"/home"}>
                         <svg
                             width="34px"

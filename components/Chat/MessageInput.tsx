@@ -16,7 +16,7 @@ export default function MessageInput({ chatId, uid }: IProps) {
     return (
         <form
             action=""
-            className="flex gap-2 items-center justify-between mb-5 mt-6"
+            className="flex gap-2 items-center justify-between mb-2"
             onSubmit={handleMessageSubmit}
         >
             <input

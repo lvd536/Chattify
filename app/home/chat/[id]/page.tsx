@@ -15,7 +15,7 @@ export default async function page({ params }: PageProps) {
     const [uid, participantUid] = id.split("_");
     const chatId = (await checkChatExists(uid, participantUid)) || "";
     return (
-        <div className="w-full sm:w-8/12">
+        <div className="w-full sm:w-8/12 h-full">
             <ChatHead participantUid={participantUid} chatId={chatId} />
             <ChatBody chatId={chatId} uid={uid} />
         </div>

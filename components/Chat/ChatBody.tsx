@@ -22,8 +22,8 @@ export default function ChatBody({ chatId, uid }: IProps) {
         }
     }
     return (
-        <div className="flex flex-col justify-end h-[calc(100vh-64px)] w-full bg-chat-bg px-20 overflow-x-hidden">
-            <ul className="flex flex-col gap-4 chat-scroll">
+        <div className="flex flex-col justify-end h-[calc(100vh-6vh)] w-full bg-chat-bg px-5 sm:px-15">
+            <ul className="flex flex-col gap-4 py-5 chat-scroll">
                 {messages.map((message) => {
                     const messageDate =
                         message.createdAt?.toDate().toDateString() !==
