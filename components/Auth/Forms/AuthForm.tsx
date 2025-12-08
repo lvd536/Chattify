@@ -2,10 +2,14 @@
 import { auth } from "@/utils/firebase";
 import {
     createUserWithEmailAndPassword,
+    sendEmailVerification,
     signInWithEmailAndPassword,
 } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ensureUserInFirestore } from "@/utils/auth";
 
 interface IFormData {
     email: string;
@@ -23,21 +27,87 @@ export default function AuthForm({ type }: IProps) {
         password: "",
     });
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
         if (type === "login") {
-            await signInWithEmailAndPassword(
-                auth,
-                formData.email,
-                formData.password
-            );
-            router.push("/home");
+            try {
+                const userCredential = await signInWithEmailAndPassword(
+                    auth,
+                    formData.email,
+                    formData.password
+                );
+
+                const user = userCredential.user;
+
+                if (!user.emailVerified) {
+                    alert(
+                        "Ваш email не подтвержден. Пожалуйста, проверьте вашу почту и подтвердите email."
+                    );
+                    return;
+                }
+                await ensureUserInFirestore(userCredential);
+                router.push("/home");
+            } catch (error) {
+                if (error instanceof FirebaseError) {
+                    console.error(
+                        "Ошибка при входе:",
+                        error.code,
+                        error.message
+                    );
+
+                    if (
+                        error.code === "auth/invalid-credential" ||
+                        error.code === "auth/user-not-found" ||
+                        error.code === "auth/wrong-password"
+                    ) {
+                        alert(
+                            "Неверный email или пароль. Пожалуйста, попробуйте еще раз."
+                        );
+                    } else if (error.code === "auth/user-disabled") {
+                        alert("Ваш аккаунт был заблокирован администратором.");
+                    } else {
+                        alert(`Произошла ошибка: ${error.message}`);
+                    }
+                } else {
+                    alert("Произошла непредвиденная ошибка.");
+                    console.error(error);
+                }
+            }
         } else {
-            await createUserWithEmailAndPassword(
-                auth,
-                formData.email,
-                formData.password
-            );
-            router.push("/home");
+            try {
+                const userCredential = await createUserWithEmailAndPassword(
+                    auth,
+                    formData.email,
+                    formData.password
+                );
+
+                await sendEmailVerification(userCredential.user);
+
+                alert(
+                    "Письмо с подтверждением отправлено на вашу почту. Пожалуйста, подтвердите его, чтобы завершить регистрацию."
+                );
+            } catch (error) {
+                if (error instanceof FirebaseError) {
+                    console.error(
+                        "Ошибка при регистрации:",
+                        error.code,
+                        error.message
+                    );
+                    if (error.code === "auth/email-already-in-use") {
+                        alert(
+                            "Пользователь с таким email уже существует. Пожалуйста, введите другой email или войдите в свой аккаунт."
+                        );
+                    } else {
+                        alert(
+                            `Произошла ошибка при регистрации: ${error.message}`
+                        );
+                    }
+                } else {
+                    alert("Произошла непредвиденная ошибка при регистрации.");
+                    console.error(error);
+                }
+            }
         }
     };
     const handleInputChange = (
@@ -53,7 +123,7 @@ export default function AuthForm({ type }: IProps) {
         <form
             action=""
             className="flex flex-col w-125 h-150 mx-auto gap-5 rounded-sm items-center justify-center"
-            onSubmit={handleSubmit}
+            onSubmit={(e) => handleSubmit(e)}
         >
             <h1 className="text-white tracking-tight text-3xl font-bold leading-tight text-center pb-6 pt-2">
                 {type === "login" ? "Вход" : "Регистрация"}
@@ -98,6 +168,11 @@ export default function AuthForm({ type }: IProps) {
             >
                 {type === "login" ? "Войти" : "Зарегистрироваться"}
             </button>
+            <Link href={type === "login" ? "register" : "login"}>
+                {type === "login"
+                    ? "Нет аккаунта? Зарегистрироваться"
+                    : "Уже есть аккаунт? Войти"}
+            </Link>
         </form>
     );
 }

@@ -32,7 +32,7 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 onAuthStateChanged(auth, async (user) => {
-    if (user) {
+    if (user && user.emailVerified) {
         const idToken = await user.getIdToken();
         const currentUser = await getUser(user.uid);
         userStore.getState().setUser(currentUser);
