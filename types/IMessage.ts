@@ -7,5 +7,6 @@ export interface IMessage {
     type?: "text" | "image" | "system";
     createdAt: Timestamp;
     deleted?: boolean;
+    read?: boolean;
     chatId: string;
 }

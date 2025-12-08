@@ -1,4 +1,5 @@
 "use client";
+import { markMessagesAsRead } from "@/utils/chat";
 import Message from "./Message";
 import MessageInput from "./MessageInput";
 import { useChatMessages } from "@/hooks/useChat";
@@ -12,6 +13,14 @@ export default function ChatBody({ chatId, uid }: IProps) {
     if (loading) return <div className="p-10 text-center">Загрузка...</div>;
     if (error)
         return <div className="text-red-500">Ошибка: {error.message}</div>;
+    if (messages) {
+        const unreadMessagesIds = messages
+            .filter((message) => message.senderId !== uid && !message.read)
+            .map((message) => message.id);
+        if (unreadMessagesIds.length > 0) {
+            markMessagesAsRead(unreadMessagesIds);
+        }
+    }
     return (
         <div className="flex flex-col justify-end h-[calc(100vh-64px)] w-full bg-chat-bg px-20 overflow-x-hidden">
             <ul className="flex flex-col gap-4 chat-scroll">
@@ -27,6 +36,7 @@ export default function ChatBody({ chatId, uid }: IProps) {
                             text={message.text || ""}
                             time={messageDate || ""}
                             isUser={message.senderId === uid}
+                            read={message.read}
                         />
                     );
                 })}

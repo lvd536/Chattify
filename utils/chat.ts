@@ -7,6 +7,7 @@ import {
     serverTimestamp,
     updateDoc,
     doc,
+    writeBatch,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { IUser } from "@/types/IUser";
@@ -109,6 +110,7 @@ export async function sendMessage(
         type: "text",
         createdAt: serverTimestamp(),
         deleted: false,
+        read: false,
     };
     const result = await addDoc(collection(db, "messages"), newMessage);
     if (result) {
@@ -116,5 +118,25 @@ export async function sendMessage(
             lastMessageAt: serverTimestamp(),
             lastMessageText: message,
         });
+    }
+}
+
+export async function markMessagesAsRead(messageIds: string[]) {
+    const batch = writeBatch(db);
+
+    const messagesCollectionRef = "messages";
+
+    for (const messageId of messageIds) {
+        const messageRef = doc(db, messagesCollectionRef, messageId);
+
+        batch.update(messageRef, {
+            read: true,
+        });
+    }
+    try {
+        await batch.commit();
+        console.log("Все сообщения успешно обновлены как прочитанные.");
+    } catch (error) {
+        console.error("Ошибка при пакетном обновлении сообщений: ", error);
     }
 }

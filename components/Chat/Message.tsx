@@ -5,9 +5,10 @@ interface IProps {
     text: string;
     time: string;
     isUser: boolean;
+    read: boolean | undefined;
 }
 
-export default function Message({ text, time, isUser }: IProps) {
+export default function Message({ text, time, isUser, read }: IProps) {
     const messageStyle = isUser
         ? "self-end bg-user-message-bg rounded-xl p-2 w-fit min-w-25 max-w-4/6"
         : "bg-message-bg rounded-xl p-2 min-w-25 w-fit max-w-4/6";
@@ -19,7 +20,16 @@ export default function Message({ text, time, isUser }: IProps) {
             <p className="max-w-100 text-justify text-wrap break-all">{text}</p>
             <div className="flex justify-end gap-2">
                 <p className={timeStyle}>{time}</p>
-                <Image alt="" src={mark}></Image>
+                <div className="items-center relative self-end">
+                    <Image alt="" src={mark} />
+                    {read && (
+                        <Image
+                            alt=""
+                            src={mark}
+                            className="absolute left-1 top-0 bottom-0"
+                        />
+                    )}
+                </div>
             </div>
         </li>
     );
