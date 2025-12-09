@@ -50,7 +50,7 @@ export default function ChatHead({ participantUid, uid, chatId }: IProps) {
     return (
         <>
             {participant ? (
-                <div className="flex relative items-center justify-between h-[6vh] border-b border-b-white/20 px-3">
+                <div className="flex relative items-center justify-between h-1/15 border-b border-b-white/20 px-3">
                     <div className="flex items-center gap-2">
                         <BackToHome />
                         <Link

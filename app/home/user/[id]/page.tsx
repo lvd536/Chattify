@@ -16,7 +16,7 @@ export default async function page({ params }: PageProps) {
     const [uid, participantUid, chatId] = id.split("_");
     const user = await getUser(participantUid);
     return (
-        <div className="w-full bg-chat-bg">
+        <div className="w-full h-dvh bg-chat-bg">
             <Info user={user} />
             <div className="flex items-center justify-center gap-4 mt-6">
                 <Link
