@@ -1,4 +1,4 @@
-import { sendMessage } from "@/utils/chat";
+import { sendTextMessage } from "@/utils/chat";
 import { useState } from "react";
 
 interface IProps {
@@ -10,7 +10,7 @@ export default function MessageInput({ chatId, uid }: IProps) {
     const [message, setMessage] = useState<string>("");
     const handleMessageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        sendMessage(chatId, uid, message);
+        sendTextMessage(chatId, uid, message);
         setMessage("");
     };
     return (
@@ -30,10 +30,7 @@ export default function MessageInput({ chatId, uid }: IProps) {
                     setMessage(e.target.value);
                 }}
             />
-            <button
-                type="submit"
-                className="absolute top-0 bottom-0 right-4"
-            >
+            <button type="submit" className="absolute top-0 bottom-0 right-4">
                 <svg
                     width="20"
                     height="20"

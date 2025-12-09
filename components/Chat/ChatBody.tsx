@@ -36,6 +36,7 @@ export default function ChatBody({ chatId, uid }: IProps) {
                             text={message.text || ""}
                             time={messageDate || ""}
                             isUser={message.senderId === uid}
+                            id={message.id}
                             read={message.read}
                         />
                     );

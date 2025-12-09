@@ -99,7 +99,7 @@ export async function createChat(uid1: string, uid2: string) {
     return false;
 }
 
-export async function sendMessage(
+export async function sendTextMessage(
     chatId: string,
     senderId: string,
     message: string
@@ -148,5 +148,14 @@ export async function deleteChat(chatId: string) {
         if (confirmed) await deleteDoc(doc(db, "chats", chatId));
     } catch (error) {
         console.error("Error deleting chat: ", error);
+    }
+}
+
+export async function deleteMessage(messageId: string) {
+    try {
+        const confirmed = confirm("Are you shure to delete this message?");
+        if (confirmed) await deleteDoc(doc(db, "messages", messageId));
+    } catch (error) {
+        console.error("Error deleting message: ", error);
     }
 }
