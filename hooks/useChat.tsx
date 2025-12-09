@@ -10,7 +10,7 @@ import { db } from "@/utils/firebase";
 import type { IUser } from "@/types/IUser";
 import type { IMessage } from "@/types/IMessage";
 
-export function useSearchUsers(search: string) {
+export function useSearchUsers(search: string, uid: string) {
     const start = search ? search.toLowerCase() : "";
     const end = start ? start + "\uf8ff" : "";
     const usersRef = collection(db, "users");
@@ -44,13 +44,13 @@ export function useSearchUsers(search: string) {
         const uniq: IUser[] = [];
         const seen = new Set<string>();
         for (const u of mapped) {
-            if (!seen.has(u.uid)) {
+            if (!seen.has(u.uid) && u.uid !== uid) {
                 seen.add(u.uid);
                 uniq.push(u);
             }
         }
         return uniq;
-    }, [snap1, snap2]);
+    }, [snap1, snap2, uid]);
 
     return {
         users,

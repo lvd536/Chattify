@@ -3,13 +3,12 @@ import User from "./User";
 import { useEffect } from "react";
 
 interface IProps {
-    // user: IUser;
     searchValue: string;
     uid: string;
 }
 
 export default function UserList({ searchValue, uid }: IProps) {
-    const { users, loading, error } = useSearchUsers(searchValue);
+    const { users, loading, error } = useSearchUsers(searchValue, uid);
     useEffect(() => {
         console.log(users);
     }, [users]);
