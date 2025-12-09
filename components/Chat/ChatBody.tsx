@@ -38,6 +38,7 @@ export default function ChatBody({ chatId, uid }: IProps) {
                             isUser={message.senderId === uid}
                             id={message.id}
                             read={message.read}
+                            type={message.type}
                         />
                     );
                 })}
