@@ -9,11 +9,12 @@ import Actions from "./Actions";
 import Link from "next/link";
 
 interface IProps {
+    uid: string;
     participantUid: string;
     chatId: string;
 }
 
-export default function ChatHead({ participantUid, chatId }: IProps) {
+export default function ChatHead({ participantUid, uid, chatId }: IProps) {
     const participant = useParticipant(participantUid);
     const [lastSeenAt, setLastSeenAt] = useState<string>("Loading...");
     const [isActionsOpen, setIsActionsOpen] = useState<boolean>();
@@ -73,7 +74,10 @@ export default function ChatHead({ participantUid, chatId }: IProps) {
                             </g>
                         </svg>
                     </Link>
-                    <div className="flex items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300">
+                    <Link
+                        href={`/home/user/${uid}_${participant.uid}_${chatId}`}
+                        className="flex items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300"
+                    >
                         <Avatar
                             name={participant.displayName || "A"}
                             src={participant.photoURL || ""}
@@ -83,7 +87,7 @@ export default function ChatHead({ participantUid, chatId }: IProps) {
                             <Name>{participant.displayName}</Name>
                             <Details>{lastSeenAt}</Details>
                         </div>
-                    </div>
+                    </Link>
                     <svg
                         viewBox="0 0 34 34"
                         className="w-5 h-5"
