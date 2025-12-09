@@ -12,6 +12,7 @@ export default function Trash({ onClick }: IProps) {
             width={16}
             height={16}
             onClick={onClick}
+            className="min-w-4 min-h-4"
         >
             <g id="SVGRepo_bgCarrier" strokeWidth="0" />
             <g

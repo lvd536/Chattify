@@ -30,7 +30,7 @@ export default function Message({
         <li className={messageStyle}>
             {type === "text" ? (
                 <>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-start">
                         <p className="max-w-100 text-justify text-wrap break-all">
                             {text}
                         </p>
