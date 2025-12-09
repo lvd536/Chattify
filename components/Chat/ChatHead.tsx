@@ -7,6 +7,7 @@ import { IUser } from "@/types/IUser";
 import { useEffect, useState } from "react";
 import Actions from "./Actions";
 import Link from "next/link";
+import BackToHome from "./BackToHome";
 
 interface IProps {
     uid: string;
@@ -50,44 +51,23 @@ export default function ChatHead({ participantUid, uid, chatId }: IProps) {
         <>
             {participant ? (
                 <div className="flex relative items-center justify-between h-[6vh] border-b border-b-white/20 px-3">
-                    <Link href={"/home"}>
-                        <svg
-                            width="34px"
-                            height="34px"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
+                    <div className="flex items-center gap-2">
+                        <BackToHome />
+                        <Link
+                            href={`/home/user/${uid}_${participant.uid}_${chatId}`}
+                            className="flex items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300"
                         >
-                            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                            <g
-                                id="SVGRepo_tracerCarrier"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            ></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M14.5 17L9.5 12L14.5 7"
-                                    stroke="#949dac"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                ></path>{" "}
-                            </g>
-                        </svg>
-                    </Link>
-                    <Link
-                        href={`/home/user/${uid}_${participant.uid}_${chatId}`}
-                        className="flex items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300"
-                    >
-                        <Avatar
-                            name={participant.displayName || "A"}
-                            src={participant.photoURL || ""}
-                            alt="User Avatar"
-                        />
-                        <div>
-                            <Name>{participant.displayName}</Name>
-                            <Details>{lastSeenAt}</Details>
-                        </div>
-                    </Link>
+                            <Avatar
+                                name={participant.displayName || "A"}
+                                src={participant.photoURL || ""}
+                                alt="User Avatar"
+                            />
+                            <div>
+                                <Name>{participant.displayName}</Name>
+                                <Details>{lastSeenAt}</Details>
+                            </div>
+                        </Link>
+                    </div>
                     <svg
                         viewBox="0 0 34 34"
                         className="w-5 h-5"
