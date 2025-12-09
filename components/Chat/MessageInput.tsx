@@ -16,7 +16,7 @@ export default function MessageInput({ chatId, uid }: IProps) {
     return (
         <form
             action=""
-            className="flex gap-2 items-center justify-between mb-2"
+            className="relative flex gap-2 items-center justify-between mb-2"
             onSubmit={handleMessageSubmit}
         >
             <input
@@ -32,9 +32,20 @@ export default function MessageInput({ chatId, uid }: IProps) {
             />
             <button
                 type="submit"
-                className="flex text-sm items-center h-11 p-4 w-fit rounded-xl bg-message-bg"
+                className="absolute top-0 bottom-0 right-4"
             >
-                Submit
+                <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M10.568 9.94977L3.03601 11.2058C2.94942 11.2202 2.86815 11.2572 2.80039 11.313C2.73263 11.3689 2.68077 11.4415 2.65001 11.5238L0.0530096 18.4808C-0.19499 19.1208 0.47401 19.7308 1.08801 19.4238L19.088 10.4238C19.2127 10.3615 19.3175 10.2658 19.3908 10.1472C19.4641 10.0287 19.503 9.89212 19.503 9.75277C19.503 9.61342 19.4641 9.47682 19.3908 9.3583C19.3175 9.23978 19.2127 9.14402 19.088 9.08177L1.08801 0.0817693C0.47401 -0.225231 -0.19499 0.385769 0.0530096 1.02477L2.65101 7.98177C2.68162 8.06418 2.73343 8.13707 2.8012 8.19307C2.86897 8.24908 2.9503 8.28623 3.03701 8.30077L10.569 9.55577C10.6154 9.56389 10.6574 9.58809 10.6876 9.62413C10.7179 9.66016 10.7345 9.70571 10.7345 9.75277C10.7345 9.79983 10.7179 9.84538 10.6876 9.88141C10.6574 9.91745 10.6154 9.94165 10.569 9.94977H10.568Z"
+                        fill="#8BABD8"
+                    />
+                </svg>
             </button>
         </form>
     );
