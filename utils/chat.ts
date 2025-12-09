@@ -122,6 +122,29 @@ export async function sendTextMessage(
     }
 }
 
+export async function sendImageMessage(
+    chatId: string,
+    senderId: string,
+    cloudinaryURL: string
+) {
+    const newMessage = {
+        chatId: chatId,
+        senderId: senderId,
+        text: cloudinaryURL,
+        type: "image",
+        createdAt: serverTimestamp(),
+        deleted: false,
+        read: false,
+    };
+    const result = await addDoc(collection(db, "messages"), newMessage);
+    if (result) {
+        await updateDoc(doc(db, "chats", chatId), {
+            lastMessageAt: serverTimestamp(),
+            lastMessageText: "image",
+        });
+    }
+}
+
 export async function markMessagesAsRead(messageIds: string[]) {
     const batch = writeBatch(db);
 
