@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { sendImageMessage } from "@/utils/chat";
+import { sendImageMessage, uploadToCloudinary } from "@/utils/chat";
 type Props = {
     chatId: string;
     uid: string;
@@ -204,40 +204,4 @@ export default function ImageUploadModal({
             </div>
         </div>
     );
-}
-function uploadToCloudinary(
-    file: File,
-    cloudName: string,
-    uploadPreset: string
-): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
-        const fd = new FormData();
-        fd.append("file", file);
-        fd.append("upload_preset", uploadPreset);
-
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", url);
-
-        xhr.onload = () => {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                try {
-                    const resp = JSON.parse(xhr.responseText);
-                    const imageUrl = resp.secure_url || resp.url;
-                    if (!imageUrl)
-                        return reject(new Error("Ошибка при получении url"));
-                    resolve(imageUrl);
-                } catch (err) {
-                    reject(err);
-                }
-            } else {
-                reject(
-                    new Error(`Upload failed: ${xhr.status} ${xhr.statusText}`)
-                );
-            }
-        };
-
-        xhr.onerror = () => reject(new Error("Network error during upload"));
-        xhr.send(fd);
-    });
 }
