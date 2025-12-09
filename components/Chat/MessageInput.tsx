@@ -12,8 +12,10 @@ export default function MessageInput({ chatId, uid }: IProps) {
     const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
     const handleMessageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        sendTextMessage(chatId, uid, message);
-        setMessage("");
+        if (message.trim()) {
+            sendTextMessage(chatId, uid, message);
+            setMessage("");
+        }
     };
     return (
         <>
