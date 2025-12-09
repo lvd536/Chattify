@@ -231,6 +231,10 @@ export async function deleteChatHistory(chatId: string) {
                 batch.delete(doc.ref);
             });
             await batch.commit();
+            await updateDoc(doc(db, "chats", chatId), {
+                lastMessageAt: null,
+                lastMessageText: null,
+            });
         } catch (error) {
             console.error("Error deleting chat history: ", error);
         }
