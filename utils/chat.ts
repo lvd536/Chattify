@@ -218,3 +218,21 @@ export function uploadToCloudinary(
         xhr.send(fd);
     });
 }
+
+export async function deleteChatHistory(chatId: string) {
+    const confirmed = confirm("Are you sure to delete chat history?");
+    if (confirmed) {
+        try {
+            const messages = await getDocs(
+                query(collection(db, "messages"), where("chatId", "==", chatId))
+            );
+            const batch = writeBatch(db);
+            messages.forEach((doc) => {
+                batch.delete(doc.ref);
+            });
+            await batch.commit();
+        } catch (error) {
+            console.error("Error deleting chat history: ", error);
+        }
+    }
+}
