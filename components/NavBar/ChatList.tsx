@@ -13,21 +13,31 @@ export default function ChatList({ user }: IProps) {
         <ul className="mt-5 h-full">
             {success && users.length === chats.length ? (
                 chats.map((c, index) => {
+                    const participant = users.find(
+                        (u) =>
+                            u.uid ===
+                            c.participants.find(
+                                (pUid: string) => pUid !== user.uid
+                            )
+                    );
                     const messageDate = c.lastMessageAt
                         ? c.lastMessageAt?.toDate().toDateString() !==
                           new Date().toDateString()
                             ? c.lastMessageAt?.toDate().toDateString()
                             : c.lastMessageAt?.toDate().toLocaleTimeString()
                         : "";
+                    if (!participant) {
+                        return <div key={index}>Cannot get participant</div>;
+                    }
                     return (
                         <Chat
-                            avatarUrl={users[index].photoURL || ""}
+                            avatarUrl={participant.photoURL || ""}
                             lastMessageAt={messageDate}
                             lastMessageText={c.lastMessageText}
-                            name={users[index].displayName || ""}
+                            name={participant.displayName || ""}
                             uid={user.uid}
-                            participantUid={users[index].uid}
-                            key={users[index].uid}
+                            participantUid={participant.uid}
+                            key={participant.uid}
                         />
                     );
                 })
