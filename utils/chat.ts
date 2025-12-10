@@ -145,6 +145,31 @@ export async function sendImageMessage(
     }
 }
 
+export async function sendAudioMessage(
+    chatId: string,
+    senderId: string,
+    cloudinaryURL: string,
+    duration: number
+) {
+    const newMessage = {
+        chatId: chatId,
+        senderId: senderId,
+        text: cloudinaryURL,
+        type: "audio",
+        duration: duration,
+        createdAt: serverTimestamp(),
+        deleted: false,
+        read: false,
+    };
+    const result = await addDoc(collection(db, "messages"), newMessage);
+    if (result) {
+        await updateDoc(doc(db, "chats", chatId), {
+            lastMessageAt: serverTimestamp(),
+            lastMessageText: "voice message",
+        });
+    }
+}
+
 export async function markMessagesAsRead(messageIds: string[]) {
     const batch = writeBatch(db);
 
@@ -182,7 +207,7 @@ export async function deleteMessage(messageId: string) {
         console.error("Error deleting message: ", error);
     }
 }
-export function uploadToCloudinary(
+export function uploadImageToCloudinary(
     file: File,
     cloudName: string,
     uploadPreset: string
@@ -191,6 +216,43 @@ export function uploadToCloudinary(
         const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
         const fd = new FormData();
         fd.append("file", file);
+        fd.append("upload_preset", uploadPreset);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
+
+        xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                try {
+                    const resp = JSON.parse(xhr.responseText);
+                    const imageUrl = resp.secure_url || resp.url;
+                    if (!imageUrl)
+                        return reject(new Error("Ошибка при получении url"));
+                    resolve(imageUrl);
+                } catch (err) {
+                    reject(err);
+                }
+            } else {
+                reject(
+                    new Error(`Upload failed: ${xhr.status} ${xhr.statusText}`)
+                );
+            }
+        };
+
+        xhr.onerror = () => reject(new Error("Network error during upload"));
+        xhr.send(fd);
+    });
+}
+
+export function uploadAudioToCloudinary(
+    blob: Blob,
+    cloudName: string,
+    uploadPreset: string
+): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const url = `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`;
+        const fd = new FormData();
+        fd.append("file", blob);
         fd.append("upload_preset", uploadPreset);
 
         const xhr = new XMLHttpRequest();

@@ -8,5 +8,6 @@ export interface IMessage {
     createdAt: Timestamp;
     deleted?: boolean;
     read?: boolean;
+    duration?: number;
     chatId: string;
 }

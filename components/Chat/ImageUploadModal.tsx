@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { sendImageMessage, uploadToCloudinary } from "@/utils/chat";
+import { sendImageMessage, uploadImageToCloudinary } from "@/utils/chat";
 type Props = {
     chatId: string;
     uid: string;
@@ -85,7 +85,7 @@ export default function ImageUploadModal({
         setUploading(true);
 
         try {
-            const url = await uploadToCloudinary(
+            const url = await uploadImageToCloudinary(
                 file,
                 CLOUD_NAME,
                 UPLOAD_PRESET

@@ -1,8 +1,8 @@
 "use client";
 import { markMessagesAsRead } from "@/utils/chat";
 import Message from "./Message";
-import MessageInput from "./MessageInput";
 import { useChatMessages } from "@/hooks/useChat";
+import Input from "./Input";
 
 interface IProps {
     chatId: string;
@@ -43,7 +43,7 @@ export default function ChatBody({ chatId, uid }: IProps) {
                     );
                 })}
             </ul>
-            <MessageInput chatId={chatId} uid={uid} />
+            <Input chatId={chatId} uid={uid} />
         </div>
     );
 }

@@ -50,7 +50,7 @@ export default function Message({
                         </div>
                     </div>
                 </>
-            ) : (
+            ) : type === "image" ? (
                 <>
                     <Image src={text} alt="" width={300} height={300} />
                     <div className="flex items-center justify-between gap-2 mt-2">
@@ -70,6 +70,26 @@ export default function Message({
                         </div>
                     </div>
                 </>
+            ) : (
+                <div>
+                    <audio controls src={text} className="h-10 mb-2"></audio>
+                    <div className="flex items-center justify-end gap-2">
+                        <div className="flex w-full items-center justify-between">
+                            <Trash onClick={() => deleteMessage(id)} />
+                            <div className="flex gap-2 items-center relative">
+                                <p className={timeStyle}>{time}</p>
+                                <Image alt="" src={mark} />
+                                {read && (
+                                    <Image
+                                        alt=""
+                                        src={mark}
+                                        className="absolute left-1 top-0 bottom-0"
+                                    />
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             )}
         </li>
     );
