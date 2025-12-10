@@ -2,7 +2,7 @@
 import { markMessagesAsRead } from "@/utils/chat";
 import Message from "./Message";
 import { useChatMessages } from "@/hooks/useChat";
-import Input from "./Input";
+import Input from "./Inputs/Input";
 
 interface IProps {
     chatId: string;

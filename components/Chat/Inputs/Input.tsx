@@ -1,6 +1,6 @@
 import { useState } from "react";
-import MessageInput from "./MessageInput";
-import AudioInput from "./AudioInput";
+import MessageInput from "./Text/MessageInput";
+import AudioInput from "./Audio/AudioInput";
 
 interface IProps {
     chatId: string;
