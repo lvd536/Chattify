@@ -6,7 +6,9 @@ import { userStore } from "@/stores/userStore";
 import { updateUserActiveStatus } from "./auth";
 
 function setTokenCookie(token: string | null) {
-    if (!window) return;
+    if (typeof window === "undefined") {
+        return;
+    }
     if (!token) {
         window.document.cookie = `token=; Path=/; Max-Age=0; SameSite=Lax;`;
         return;
