@@ -1,6 +1,6 @@
 import { sendTextMessage } from "@/utils/chat";
 import { useState } from "react";
-import ImageUploadModal from "../../ImageUploadModal";
+import ImageUploadModal from "../Image/ImageUploadModal";
 
 interface IProps {
     chatId: string;
