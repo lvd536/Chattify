@@ -1,7 +1,7 @@
-import Image from "next/image";
-import mark from "@/public/mark.svg";
 import { deleteMessage } from "@/utils/chat";
-import Trash from "./Trash";
+import TextMessage from "./Message/TextMessage";
+import AudioMessage from "./Message/AudioMessage";
+import ImageMessage from "./Message/ImageMessage";
 
 interface IProps {
     text: string;
@@ -29,67 +29,29 @@ export default function Message({
     return (
         <li className={messageStyle}>
             {type === "text" ? (
-                <>
-                    <div className="flex justify-between items-start">
-                        <p className="max-w-100 text-justify text-wrap break-all">
-                            {text}
-                        </p>
-                        <Trash onClick={() => deleteMessage(id)} />
-                    </div>
-                    <div className="flex items-center justify-end gap-2">
-                        <p className={timeStyle}>{time}</p>
-                        <div className="items-center relative">
-                            <Image alt="" src={mark} />
-                            {read && (
-                                <Image
-                                    alt=""
-                                    src={mark}
-                                    className="absolute left-1 top-0 bottom-0"
-                                />
-                            )}
-                        </div>
-                    </div>
-                </>
+                <TextMessage
+                    timeStyle={timeStyle}
+                    onClick={() => deleteMessage(id)}
+                    read={read}
+                    text={text}
+                    time={time}
+                />
             ) : type === "image" ? (
-                <>
-                    <Image src={text} alt="" width={300} height={300} />
-                    <div className="flex items-center justify-between gap-2 mt-2">
-                        <Trash onClick={() => deleteMessage(id)} />
-                        <div className="flex items-center gap-2">
-                            <p className={timeStyle}>{time}</p>
-                            <div className="items-center relative">
-                                <Image alt="" src={mark} />
-                                {read && (
-                                    <Image
-                                        alt=""
-                                        src={mark}
-                                        className="absolute left-1 top-0 bottom-0"
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </>
+                <ImageMessage
+                    timeStyle={timeStyle}
+                    onClick={() => deleteMessage(id)}
+                    read={read}
+                    text={text}
+                    time={time}
+                />
             ) : (
-                <div>
-                    <audio controls src={text} className="h-10 mb-2"></audio>
-                    <div className="flex items-center justify-end gap-2">
-                        <div className="flex w-full items-center justify-between">
-                            <Trash onClick={() => deleteMessage(id)} />
-                            <div className="flex gap-2 items-center relative">
-                                <p className={timeStyle}>{time}</p>
-                                <Image alt="" src={mark} />
-                                {read && (
-                                    <Image
-                                        alt=""
-                                        src={mark}
-                                        className="absolute left-1 top-0 bottom-0"
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <AudioMessage
+                    timeStyle={timeStyle}
+                    onClick={() => deleteMessage(id)}
+                    read={read}
+                    text={text}
+                    time={time}
+                />
             )}
         </li>
     );
