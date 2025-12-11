@@ -14,10 +14,18 @@
     --color-message-bg: #212b35;
     --color-user-message-bg: #507450;
     --color-search-bar: #161d25;
+    --color-profile-bio: #283039;
+    --color-auth-text: #A0A0A0;
+    --color-auth-input: #3390EC;
+    --color-auth-input-hover: #2b7bce;
+    --color-auth-input-bg: #2A2A2A;
+    --color-details: #707991;
+    --color-audio-player: #32445e;
+    --color-edit-form-bg: #283039;
+    --color-edit-form-text: #9dabb9;
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
     --animate-slide-in: slide-in 0.65s ease;
-    --animate-slide-out: slide-out 0.65s ease;
 }
 
 @media (prefers-color-scheme: dark) {
