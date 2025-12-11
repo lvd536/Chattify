@@ -12,18 +12,19 @@
     --color-auth-form: var(--auth-form);
     --color-chat-bg: #101922;
     --color-message-bg: #212b35;
-    --color-user-message-bg: #507450;
+    /* --color-user-message-bg: #507450; */
+    --color-user-message-bg: #425b80;
     --color-search-bar: #161d25;
     --color-profile-bio: #283039;
-    --color-auth-text: #A0A0A0;
-    --color-auth-input: #3390EC;
+    --color-auth-text: #a0a0a0;
+    --color-auth-input: #3390ec;
     --color-auth-input-hover: #2b7bce;
-    --color-auth-input-bg: #2A2A2A;
+    --color-auth-input-bg: #2a2a2a;
     --color-details: #707991;
     --color-audio-player: #32445e;
     --color-edit-form-bg: #283039;
     --color-edit-form-text: #9dabb9;
-    --color-icons: #8BABD8;
+    --color-icons: #8babd8;
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
     --animate-slide-in: slide-in 0.65s ease;
