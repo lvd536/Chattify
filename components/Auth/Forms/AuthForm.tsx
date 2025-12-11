@@ -131,7 +131,7 @@ export default function AuthForm({ type }: IProps) {
             <div className="flex flex-col gap-2">
                 <label
                     htmlFor="emailInput"
-                    className="text-[#A0A0A0] font-medium"
+                    className="text-auth-text font-medium"
                 >
                     Email
                 </label>
@@ -140,7 +140,7 @@ export default function AuthForm({ type }: IProps) {
                     name="emailInput"
                     id="emailInput"
                     placeholder="Введите ваш email"
-                    className="flex w-90 h-7 rounded-sm text-white focus:outline-none focus:ring-2 focus:ring-[#3390EC] border-none bg-[#2A2A2A] placeholder:text-[#A0A0A0] p-5 transition-ring duration-200"
+                    className="flex w-90 h-7 rounded-sm text-white focus:outline-none focus:ring-2 focus:ring-auth-input border-none bg-auth-input-bg placeholder:text-auth-text p-5 transition-ring duration-200"
                     value={formData.email}
                     onChange={(e) => handleInputChange(e, "email")}
                 />
@@ -148,7 +148,7 @@ export default function AuthForm({ type }: IProps) {
             <div className="flex flex-col gap-2">
                 <label
                     htmlFor="passwordInput"
-                    className="text-[#A0A0A0] font-medium"
+                    className="text-auth-text font-medium"
                 >
                     Password
                 </label>
@@ -157,14 +157,14 @@ export default function AuthForm({ type }: IProps) {
                     name="passwordInput"
                     id="passwordInput"
                     placeholder="Введите ваш password"
-                    className="flex w-90 h-7 rounded-sm text-white focus:outline-none focus:ring-2 focus:ring-[#3390EC] border-none bg-[#2A2A2A] placeholder:text-[#A0A0A0] p-5 transition-ring duration-200"
+                    className="flex w-90 h-7 rounded-sm text-white focus:outline-none focus:ring-2 focus:ring-auth-input border-none bg-auth-input-bg placeholder:text-auth-text p-5 transition-ring duration-200"
                     value={formData.password}
                     onChange={(e) => handleInputChange(e, "password")}
                 />
             </div>
             <button
                 type="submit"
-                className="flex w-90 items-center justify-center overflow-hidden rounded-sm h-10 px-5 bg-[#3390EC] text-white font-bold hover:bg-[#2b7bce] transition-colors duration-200"
+                className="flex w-90 items-center justify-center overflow-hidden rounded-sm h-10 px-5 bg-auth-input text-white font-bold hover:bg-auth-input-hover transition-colors duration-200"
             >
                 {type === "login" ? "Войти" : "Зарегистрироваться"}
             </button>

@@ -25,7 +25,7 @@ export default function UserProfile({ uid }: IProps) {
                             <h3 className="font-semibold text-sm">
                                 {user[0].displayName}
                             </h3>
-                            <p className="text-xs font-semibold text-[#707991]">
+                            <p className="text-xs font-semibold text-details">
                                 Online
                             </p>
                         </div>

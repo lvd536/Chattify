@@ -21,7 +21,7 @@ export default function Info({ user }: IProps) {
             <div className="flex flex-col items-center justify-center mt-5">
                 <Avatar alt="" name="Display" src={user?.photoURL || ""} />
                 <h1 className="font-bold text-lg mt-2">{user?.displayName}</h1>
-                <p className="text-[#707991]">@{user?.username}</p>
+                <p className="text-details">@{user?.username}</p>
             </div>
         </>
     );

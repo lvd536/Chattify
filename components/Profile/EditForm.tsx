@@ -54,7 +54,7 @@ export default function EditForm({ user }: IProps) {
                 name="displayName"
                 id="displayName"
                 required
-                className="w-full h-10 rounded-lg bg-[#283039] border-none text-white px-4 focus:ring-1 placeholder:text-[#9dabb9] transition-all duration-300"
+                className="w-full h-10 rounded-lg bg-edit-form-bg border-none text-white px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300"
                 value={formData.displayName}
                 onChange={(e) => {
                     setFormData({
@@ -69,8 +69,8 @@ export default function EditForm({ user }: IProps) {
             >
                 Username
             </label>
-            <div className="flex items-center w-full h-10 rounded-lg focus-within:ring-1 focus-within:ring-primary bg-[#283039] border-none text-white px-4 focus:ring-1 placeholder:text-[#9dabb9] transition-all duration-300">
-                <span className="p-2 text-[#9dabb9] select-none">@</span>
+            <div className="flex items-center w-full h-10 rounded-lg focus-within:ring-1 focus-within:ring-primary bg-edit-form-bg border-none text-white px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300">
+                <span className="p-2 text-edit-form-text select-none">@</span>
                 <input
                     type="text"
                     name="username"
@@ -96,7 +96,7 @@ export default function EditForm({ user }: IProps) {
                 type="text"
                 name="photoUrl"
                 id="photoUrl"
-                className="w-full h-10 rounded-lg bg-[#283039] border-none text-white px-4 focus:ring-1 placeholder:text-[#9dabb9] transition-all duration-300"
+                className="w-full h-10 rounded-lg bg-edit-form-bg border-none text-white px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300"
                 value={formData.photoURL}
                 onChange={(e) => {
                     setFormData({
@@ -114,7 +114,7 @@ export default function EditForm({ user }: IProps) {
             <textarea
                 name="bio"
                 id="bio"
-                className="w-full h-32 rounded-lg bg-[#283039] border-none text-white p-4 focus:ring-1 focus:ring-primary placeholder:text-[#9dabb9] resize-none transition-all leading-relaxed"
+                className="w-full h-32 rounded-lg bg-edit-form-bg border-none text-white p-4 focus:ring-1 focus:ring-primary placeholder:text-edit-form-text resize-none transition-all leading-relaxed"
                 placeholder="Tell about yourself"
                 value={formData.description}
                 onChange={(e) => {
@@ -124,10 +124,10 @@ export default function EditForm({ user }: IProps) {
                     });
                 }}
             />
-            <div className="pt-6 mt-3 flex flex-col-reverse sm:flex-row gap-4 justify-end border-t border-[#283039]">
+            <div className="pt-6 mt-3 flex flex-col-reverse sm:flex-row gap-4 justify-end border-t border-edit-form-bg">
                 <Link
                     href={"/home"}
-                    className="flex items-center h-12 px-8 bg-[#283039] hover:bg-[#323b46] text-white font-bold rounded-lg transition-colors duration-300 focus:ring-[#9dabb9]/50"
+                    className="flex items-center h-12 px-8 bg-edit-form-bg hover:bg-edit-form-bg/80 text-white font-bold rounded-lg transition-colors duration-300 focus:ring-edit-form-text/50"
                 >
                     Cancel
                 </Link>
