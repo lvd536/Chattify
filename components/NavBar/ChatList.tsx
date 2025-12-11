@@ -33,11 +33,12 @@ export default function ChatList({ user }: IProps) {
                         <Chat
                             avatarUrl={participant.photoURL || ""}
                             lastMessageAt={messageDate}
-                            lastMessageText={c.lastMessageText}
+                            lastMessageText={c.lastMessageText || ""}
                             name={participant.displayName || ""}
                             uid={user.uid}
                             participantUid={participant.uid}
                             key={participant.uid}
+                            chatId={c.id}
                         />
                     );
                 })

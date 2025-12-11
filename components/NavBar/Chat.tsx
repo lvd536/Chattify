@@ -2,6 +2,7 @@ import Link from "next/link";
 import Avatar from "../Chat/Avatar";
 import Details from "../Chat/Details";
 import Name from "../Chat/Name";
+import { useUnreadMessages } from "@/hooks/useChat";
 
 interface IProps {
     name: string;
@@ -9,6 +10,7 @@ interface IProps {
     lastMessageAt: string;
     lastMessageText: string;
     uid: string;
+    chatId: string;
     participantUid?: string;
 }
 
@@ -17,9 +19,11 @@ export default function Chat({
     avatarUrl,
     lastMessageAt,
     lastMessageText,
+    chatId,
     uid,
     participantUid,
 }: IProps) {
+    const { unreadMessages } = useUnreadMessages(chatId, uid);
     return (
         <li>
             <Link
@@ -28,7 +32,7 @@ export default function Chat({
             >
                 <Avatar alt="User Avatar" src={avatarUrl} name={name} />
                 <div className="flex flex-col w-[calc(100%-60px)]">
-                    <Name>{name}</Name>
+                    <Name messagesCount={unreadMessages?.length}>{name}</Name>
                     <Details lastMessageAt={lastMessageAt}>
                         {lastMessageText}
                     </Details>

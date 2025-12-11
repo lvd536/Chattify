@@ -9,6 +9,7 @@ import {
 import { db } from "@/utils/firebase";
 import type { IUser } from "@/types/IUser";
 import type { IMessage } from "@/types/IMessage";
+import { IChat } from "@/types/IChat";
 
 export function useSearchUsers(search: string, uid: string) {
     const start = search ? search.toLowerCase() : "";
@@ -112,7 +113,19 @@ export function useChatListData(uid: string) {
         [uid]
     );
 
-    const [chats, chatsLoading, chatsError] = useCollectionData(chatsQuery);
+    const [chatsSnapshot, chatsLoading, chatsError] = useCollection(chatsQuery);
+
+    const chats = useMemo(() => {
+        if (!chatsSnapshot) return undefined;
+
+        return chatsSnapshot.docs.map(
+            (doc) =>
+                ({
+                    id: doc.id,
+                    ...doc.data(),
+                } as IChat)
+        );
+    }, [chatsSnapshot]);
 
     const otherParticipantUids = useMemo(() => {
         if (!chats) return [];
@@ -142,5 +155,23 @@ export function useChatListData(uid: string) {
         users,
         loading: chatsLoading || (Boolean(usersQuery) && usersLoading),
         error: chatsError ?? usersError ?? null,
+    };
+}
+
+export function useUnreadMessages(chatId: string, uid: string) {
+    const q = query(
+        collection(db, "messages"),
+        where("chatId", "==", chatId),
+        where("read", "==", false)
+    );
+
+    const [messagesData] = useCollectionData(q, {
+        snapshotListenOptions: { includeMetadataChanges: true },
+    });
+    const unreadMessages = messagesData?.filter(
+        (message) => message.senderId !== uid
+    );
+    return {
+        unreadMessages,
     };
 }
