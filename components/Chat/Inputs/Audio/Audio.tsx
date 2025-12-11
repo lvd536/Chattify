@@ -1,3 +1,5 @@
+import AudioPlayer from "../../Message/AudioPlayer";
+
 interface IProps {
     audioURL: string;
     clearAudio: () => void;
@@ -20,6 +22,7 @@ export default function Audio({ audioURL, clearAudio, isRecording }: IProps) {
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    className="stroke-icons"
                 >
                     <g id="SVGRepo_bgCarrier" strokeWidth="0" />
                     <g
@@ -30,14 +33,12 @@ export default function Audio({ audioURL, clearAudio, isRecording }: IProps) {
                     <g id="SVGRepo_iconCarrier">
                         <path
                             d="M9 9L15 15"
-                            stroke="#8BABD8"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                         />
                         <path
                             d="M15 9L9 15"
-                            stroke="#8BABD8"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -46,7 +47,6 @@ export default function Audio({ audioURL, clearAudio, isRecording }: IProps) {
                             cx="12"
                             cy="12"
                             r="9"
-                            stroke="#8BABD8"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -54,11 +54,14 @@ export default function Audio({ audioURL, clearAudio, isRecording }: IProps) {
                     </g>
                 </svg>
             </button>
-            <audio
+            {/* <audio
                 controls
                 src={audioURL}
                 className="w-full h-10 bg-message-bg rounded-xl"
-            />
+            /> */}
+            <div className="w-full h-10">
+                <AudioPlayer src={audioURL} disableJustify />
+            </div>
         </div>
     );
 }
