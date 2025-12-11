@@ -28,7 +28,7 @@ export default function AudioMessage({
                             <Image
                                 alt=""
                                 src={mark}
-                                className="absolute left-1 top-0 bottom-0"
+                                className="absolute right-1 top-1 bottom-0"
                             />
                         )}
                     </div>
