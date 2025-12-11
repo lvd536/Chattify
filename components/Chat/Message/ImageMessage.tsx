@@ -17,7 +17,13 @@ export default function ImageMessage({
 }: IProps) {
     return (
         <>
-            <Image src={text} alt="" width={300} height={300} />
+            <Image
+                src={text}
+                alt=""
+                width={300}
+                height={300}
+                className="rounded-xl"
+            />
             <div className="flex items-center justify-between gap-2 mt-2">
                 <Trash onClick={onClick} />
                 <div className="flex items-center gap-2">
