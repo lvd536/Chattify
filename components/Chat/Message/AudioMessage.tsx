@@ -1,6 +1,7 @@
 import Trash from "../Trash";
 import Image from "next/image";
 import mark from "@/public/mark.svg";
+import AudioPlayer from "./AudioPlayer";
 interface IProps {
     text: string;
     time: string;
@@ -16,8 +17,8 @@ export default function AudioMessage({
     timeStyle,
 }: IProps) {
     return (
-        <div>
-            <audio controls src={text} className="h-10 mb-2"></audio>
+        <div className="w-67">
+            <AudioPlayer src={text} />
             <div className="flex items-center justify-end gap-2">
                 <div className="flex w-full items-center justify-between">
                     <Trash onClick={onClick} />
