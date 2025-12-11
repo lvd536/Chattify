@@ -7,7 +7,6 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { UserCredential } from "firebase/auth";
-import { userStore } from "@/stores/userStore";
 
 export const ensureUserInFirestore = async (firebaseUser: UserCredential) => {
     if (!firebaseUser) return;
@@ -29,7 +28,6 @@ export const ensureUserInFirestore = async (firebaseUser: UserCredential) => {
                     .replace(/\s+/g, "") || "",
         };
         await setDoc(userRef, user);
-        userStore.getState().setUser(user);
     }
 };
 
