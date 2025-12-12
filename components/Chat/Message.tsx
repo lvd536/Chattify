@@ -21,8 +21,8 @@ export default function Message({
     type,
 }: IProps) {
     const messageStyle = isUser
-        ? "self-end bg-user-message-bg rounded-xl p-2 w-fit min-w-25 max-w-4/6"
-        : "bg-message-bg rounded-xl p-2 min-w-25 w-fit max-w-4/6";
+        ? "self-end bg-user-message-bg rounded-xl p-2 w-fit min-w-25 max-w-80"
+        : "bg-message-bg rounded-xl p-2 min-w-25 w-fit max-w-80";
     const timeStyle = isUser ? "text-text/90 text-xs" : "text-details text-xs";
     return (
         <li className={messageStyle}>
