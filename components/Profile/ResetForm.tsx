@@ -3,16 +3,22 @@
 import Link from "next/link";
 import { useState } from "react";
 import { auth } from "@/utils/firebase";
-import { updatePassword } from "firebase/auth";
+import {
+    EmailAuthProvider,
+    reauthenticateWithCredential,
+    updatePassword,
+} from "firebase/auth";
 import { useRouter } from "next/navigation";
 
 interface IResetForm {
+    currentPassword: string;
     newPassword: string;
     confirmPassword: string;
 }
 
 export default function ResetForm() {
     const [formData, setFormData] = useState<IResetForm>({
+        currentPassword: "",
         newPassword: "",
         confirmPassword: "",
     });
@@ -23,24 +29,45 @@ export default function ResetForm() {
         if (!auth.currentUser) {
             setError("User not found");
             return;
-        } else if (formData.newPassword !== formData.confirmPassword) {
+        } else if (!auth.currentUser.email) return;
+        else if (formData.newPassword !== formData.confirmPassword) {
             setError("Passwords do not match");
             return;
         } else if (formData.newPassword.length < 8) {
             setError("Password must be at least 8 characters long");
             return;
         }
-
-        updatePassword(auth.currentUser, formData.newPassword)
+        const credential = EmailAuthProvider.credential(
+            auth.currentUser.email,
+            formData.currentPassword
+        );
+        reauthenticateWithCredential(auth.currentUser, credential)
             .then(() => {
-                auth.signOut();
-                alert(
-                    "Password reset successful. Please log in with your new password."
-                );
-                navigator.push("/");
+                if (!auth.currentUser) {
+                    setError("User not found");
+                    return;
+                }
+                updatePassword(auth.currentUser, formData.newPassword)
+                    .then(() => {
+                        auth.signOut();
+                        alert(
+                            "Password reset successful. Please log in with your new password."
+                        );
+                        navigator.push("/");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "Error resetting password:",
+                            err.code,
+                            err.message
+                        );
+                        setError(
+                            "Failed to reset password. Please try again later."
+                        );
+                    });
             })
             .catch(() => {
-                setError("Failed to reset password. Please try again later.");
+                setError("Current password is incorrect. Please try again.");
             });
         setError(null);
     };
@@ -55,7 +82,26 @@ export default function ResetForm() {
                     {error}
                 </h1>
             )}
-
+            <label
+                htmlFor="newPassword"
+                className="self-start text-text text-sm font-medium"
+            >
+                Current password
+            </label>
+            <input
+                type="text"
+                name="newPassword"
+                id="newPassword"
+                required
+                className="w-full h-10 rounded-lg bg-edit-form-bg border-none text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300"
+                value={formData.currentPassword}
+                onChange={(e) => {
+                    setFormData({
+                        ...formData,
+                        currentPassword: e.target.value,
+                    });
+                }}
+            />
             <label
                 htmlFor="newPassword"
                 className="self-start text-text text-sm font-medium"
