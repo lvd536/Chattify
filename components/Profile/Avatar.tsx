@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { auth } from "@/utils/firebase";
+import Link from "next/link";
 
 interface IProps {
     src: string;
@@ -26,7 +27,8 @@ export default function Avatar({ src, alt, name }: IProps) {
                     <p className="font-extrabold text-4xl">{name[0]}</p>
                 </div>
             )}
-            <button
+            <Link
+                href={"/"}
                 className="flex items-center justify-center absolute right-0 bottom-0 bg-audio-player/85 p-1 rounded-full"
                 onClick={handleSignOut}
             >
@@ -57,7 +59,7 @@ export default function Avatar({ src, alt, name }: IProps) {
                         ></path>
                     </g>
                 </svg>
-            </button>
+            </Link>
         </div>
     );
 }
