@@ -159,6 +159,14 @@ export default function AuthForm({ type }: IProps) {
                     onChange={(e) => handleInputChange(e, "password")}
                 />
             </div>
+            {type === "login" && (
+                <Link
+                    href={"/auth/forgot-password"}
+                    className="text-sm w-90 flex items-center justify-start text-text hover:text-auth-input transition-text duration-300"
+                >
+                    Forgot your password? Reset
+                </Link>
+            )}
             <button
                 type="submit"
                 className="flex w-90 items-center justify-center overflow-hidden rounded-sm h-10 px-5 bg-auth-input text-text font-bold hover:bg-auth-input-hover transition-colors duration-200"
