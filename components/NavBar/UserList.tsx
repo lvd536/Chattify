@@ -9,9 +9,6 @@ interface IProps {
 
 export default function UserList({ searchValue, uid }: IProps) {
     const { users, loading, error } = useSearchUsers(searchValue, uid);
-    useEffect(() => {
-        console.log(users);
-    }, [users]);
     return (
         <ul className="sm:block mt-5 h-full">
             {users && !loading && !error ? (

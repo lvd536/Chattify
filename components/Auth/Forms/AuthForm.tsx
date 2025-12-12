@@ -50,12 +50,6 @@ export default function AuthForm({ type }: IProps) {
                 router.push("/home");
             } catch (error) {
                 if (error instanceof FirebaseError) {
-                    console.error(
-                        "Ошибка при входе:",
-                        error.code,
-                        error.message
-                    );
-
                     if (
                         error.code === "auth/invalid-credential" ||
                         error.code === "auth/user-not-found" ||
@@ -71,7 +65,6 @@ export default function AuthForm({ type }: IProps) {
                     }
                 } else {
                     alert("Произошла непредвиденная ошибка.");
-                    console.error(error);
                 }
             }
         } else {
@@ -99,11 +92,6 @@ export default function AuthForm({ type }: IProps) {
                 );
             } catch (error) {
                 if (error instanceof FirebaseError) {
-                    console.error(
-                        "Ошибка при регистрации:",
-                        error.code,
-                        error.message
-                    );
                     if (error.code === "auth/email-already-in-use") {
                         alert(
                             "Пользователь с таким email уже существует. Пожалуйста, введите другой email или войдите в свой аккаунт."
@@ -115,7 +103,6 @@ export default function AuthForm({ type }: IProps) {
                     }
                 } else {
                     alert("Произошла непредвиденная ошибка при регистрации.");
-                    console.error(error);
                 }
             }
         }

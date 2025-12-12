@@ -59,7 +59,6 @@ export async function getChatParticipant(
             );
             if (participant) {
                 const user = await getUser(participant);
-                console.log(user);
                 if (user) return user;
             }
         }
@@ -93,7 +92,6 @@ export async function createChat(uid1: string, uid2: string) {
         lastMessageText: "",
         participants: [uid1, uid2],
     };
-    console.log(`uid: ${uid1} other: ${uid2}`);
     const chat = await addDoc(collection(db, "chats"), chatObj);
     if (chat) return chat.id;
     return false;
@@ -184,7 +182,6 @@ export async function markMessagesAsRead(messageIds: string[]) {
     }
     try {
         await batch.commit();
-        console.log("Все сообщения успешно обновлены как прочитанные.");
     } catch (error) {
         console.error("Ошибка при пакетном обновлении сообщений: ", error);
     }
