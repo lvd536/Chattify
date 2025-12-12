@@ -6,7 +6,7 @@ interface IProps {
 export default function Name({ children, messagesCount }: IProps) {
     return (
         <div className="flex items-center justify-between">
-            <h1 className="font-semibold text-white/90 text-sm sm:text-base">
+            <h1 className="font-semibold text-text/90 text-sm sm:text-base">
                 {children}
             </h1>
             {messagesCount !== 0 && messagesCount && (

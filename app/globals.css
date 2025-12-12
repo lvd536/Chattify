@@ -1,18 +1,20 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.light, .light *));
 
 :root {
+    color-scheme: light dark;
+    background-color: var(--background);
     --background: #ffffff;
     --foreground: #181818;
     --auth-form: #191919;
 }
 
-@theme inline {
+@theme {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-auth-form: var(--auth-form);
     --color-chat-bg: #101922;
     --color-message-bg: #212b35;
-    /* --color-user-message-bg: #507450; */
     --color-user-message-bg: #425b80;
     --color-search-bar: #161d25;
     --color-profile-bio: #283039;
@@ -25,6 +27,7 @@
     --color-edit-form-bg: #283039;
     --color-edit-form-text: #9dabb9;
     --color-icons: #8babd8;
+    --color-text: #fff;
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
     --animate-slide-in: slide-in 0.65s ease;
@@ -41,6 +44,29 @@ body {
     background: var(--background);
     color: var(--foreground);
     font-family: Arial, Helvetica, sans-serif;
+    transition: all 0.2s ease-in-out;
+}
+
+.light {
+    --background: #ffffff;
+    --foreground: #181818;
+
+    --auth-form: #f3f3f3;
+    --color-chat-bg: #eef2f6;
+    --color-message-bg: #d9e1ea;
+    --color-user-message-bg: #b9cbe1;
+    --color-search-bar: #e3e8ee;
+    --color-profile-bio: #d5dce5;
+    --color-auth-text: #5a5a5a;
+    --color-auth-input: #3390ec;
+    --color-auth-input-hover: #2b7bce;
+    --color-auth-input-bg: #e8e8e8;
+    --color-details: #505b6d;
+    --color-audio-player: #c5d3e3;
+    --color-edit-form-bg: #d5dce5;
+    --color-edit-form-text: #4b5a69;
+    --color-icons: #4d6a95;
+    --color-text: #444;
 }
 
 .chat-scroll {

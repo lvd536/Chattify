@@ -23,7 +23,7 @@ export default function Message({
     const messageStyle = isUser
         ? "self-end bg-user-message-bg rounded-xl p-2 w-fit min-w-25 max-w-4/6"
         : "bg-message-bg rounded-xl p-2 min-w-25 w-fit max-w-4/6";
-    const timeStyle = isUser ? "text-white/90 text-xs" : "text-details text-xs";
+    const timeStyle = isUser ? "text-text/90 text-xs" : "text-details text-xs";
     return (
         <li className={messageStyle}>
             {type === "text" ? (

@@ -45,7 +45,7 @@ export default function EditForm({ user }: IProps) {
 
             <label
                 htmlFor="displayName"
-                className="self-start text-white text-sm font-medium text-nowrap"
+                className="self-start text-text text-sm font-medium text-nowrap"
             >
                 Display Name
             </label>
@@ -54,7 +54,7 @@ export default function EditForm({ user }: IProps) {
                 name="displayName"
                 id="displayName"
                 required
-                className="w-full h-10 rounded-lg bg-edit-form-bg border-none text-white px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300"
+                className="w-full h-10 rounded-lg bg-edit-form-bg border-none text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300"
                 value={formData.displayName}
                 onChange={(e) => {
                     setFormData({
@@ -65,11 +65,11 @@ export default function EditForm({ user }: IProps) {
             />
             <label
                 htmlFor="username"
-                className="self-start text-white text-sm font-medium"
+                className="self-start text-text text-sm font-medium"
             >
                 Username
             </label>
-            <div className="flex items-center w-full h-10 rounded-lg focus-within:ring-1 focus-within:ring-primary bg-edit-form-bg border-none text-white px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300">
+            <div className="flex items-center w-full h-10 rounded-lg focus-within:ring-1 focus-within:ring-primary bg-edit-form-bg border-none text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300">
                 <span className="p-2 text-edit-form-text select-none">@</span>
                 <input
                     type="text"
@@ -88,7 +88,7 @@ export default function EditForm({ user }: IProps) {
             </div>
             <label
                 htmlFor="displayName"
-                className="self-start text-white text-sm font-medium text-nowrap"
+                className="self-start text-text text-sm font-medium text-nowrap"
             >
                 Avatar Url
             </label>
@@ -96,7 +96,7 @@ export default function EditForm({ user }: IProps) {
                 type="text"
                 name="photoUrl"
                 id="photoUrl"
-                className="w-full h-10 rounded-lg bg-edit-form-bg border-none text-white px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300"
+                className="w-full h-10 rounded-lg bg-edit-form-bg border-none text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300"
                 value={formData.photoURL}
                 onChange={(e) => {
                     setFormData({
@@ -107,14 +107,14 @@ export default function EditForm({ user }: IProps) {
             />
             <label
                 htmlFor="bio"
-                className="self-start text-white text-sm font-medium"
+                className="self-start text-text text-sm font-medium"
             >
                 Bio
             </label>
             <textarea
                 name="bio"
                 id="bio"
-                className="w-full h-32 rounded-lg bg-edit-form-bg border-none text-white p-4 focus:ring-1 focus:ring-primary placeholder:text-edit-form-text resize-none transition-all leading-relaxed"
+                className="w-full h-32 rounded-lg bg-edit-form-bg border-none text-text p-4 focus:ring-1 focus:ring-primary placeholder:text-edit-form-text resize-none transition-all leading-relaxed"
                 placeholder="Tell about yourself"
                 value={formData.description}
                 onChange={(e) => {
@@ -127,13 +127,13 @@ export default function EditForm({ user }: IProps) {
             <div className="pt-6 mt-3 flex flex-col-reverse sm:flex-row gap-4 justify-end border-t border-edit-form-bg">
                 <Link
                     href={"/home"}
-                    className="flex items-center h-12 px-8 bg-edit-form-bg hover:bg-edit-form-bg/80 text-white font-bold rounded-lg transition-colors duration-300 focus:ring-edit-form-text/50"
+                    className="flex items-center h-12 px-8 bg-edit-form-bg hover:bg-edit-form-bg/80 text-text font-bold rounded-lg transition-colors duration-300 focus:ring-edit-form-text/50"
                 >
                     Cancel
                 </Link>
                 <button
                     type="submit"
-                    className="h-12 px-8 bg-primary hover:bg-blue-600/70 text-white font-bold rounded-lg shadow-lg shadow-blue-900/20 duration-300 transition-all active:scale-95"
+                    className="h-12 px-8 bg-primary hover:bg-blue-600/70 text-text font-bold rounded-lg shadow-lg shadow-blue-900/20 duration-300 transition-all active:scale-95"
                 >
                     Save Changes
                 </button>

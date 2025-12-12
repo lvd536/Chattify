@@ -28,7 +28,7 @@ export default async function page({ params }: PageProps) {
                 <DeleteButton chatId={chatId} />
             </div>
             <div className="flex flex-col gap-4 mx-8 p-5 mt-15 bg-profile-bio rounded-lg">
-                <h3 className="text-xs font-semibold text-white/70">ABOUT</h3>
+                <h3 className="text-xs font-semibold text-text/70">ABOUT</h3>
                 <p>{user.description || "no bio yet"}</p>
             </div>
         </div>

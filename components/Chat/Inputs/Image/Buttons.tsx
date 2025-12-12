@@ -22,7 +22,7 @@ export default function Buttons({
             <button
                 onClick={handleUpload}
                 disabled={uploading || !file}
-                className="rounded bg-green-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
+                className="rounded bg-green-600 px-4 py-2 text-sm font-medium text-text disabled:opacity-60"
             >
                 {uploading ? "Загружаем..." : "Отправить"}
             </button>

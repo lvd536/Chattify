@@ -33,7 +33,7 @@ export default function Main({ setIsAudio }: IProps) {
                     </g>
                 </svg>
             </button>
-            <p className="flex items-center w-full h-11 py-4 px-6 rounded-xl bg-message-bg text-white/60">
+            <p className="flex items-center w-full h-11 py-4 px-6 rounded-xl bg-message-bg text-text/60">
                 Record audio
             </p>
         </>

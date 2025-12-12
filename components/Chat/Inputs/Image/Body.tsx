@@ -56,7 +56,7 @@ export default function Body({
                         </p>
                         <button
                             onClick={openFilePicker}
-                            className="rounded bg-blue-600 px-4 py-2 text-white hover:opacity-95"
+                            className="rounded bg-blue-600 px-4 py-2 text-text hover:opacity-95"
                         >
                             Выбрать файл
                         </button>
