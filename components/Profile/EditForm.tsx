@@ -127,7 +127,7 @@ export default function EditForm({ user }: IProps) {
             <div className="pt-6 mt-3 flex flex-col-reverse sm:flex-row gap-4 justify-end border-t border-edit-form-bg">
                 <Link
                     href={"/home"}
-                    className="flex items-center h-12 px-8 bg-edit-form-bg hover:bg-edit-form-bg/80 text-text font-bold rounded-lg transition-colors duration-300 focus:ring-edit-form-text/50"
+                    className="flex items-center justify-center h-12 px-8 bg-edit-form-bg hover:bg-edit-form-bg/80 text-text font-bold rounded-lg transition-colors duration-300 focus:ring-edit-form-text/50"
                 >
                     Cancel
                 </Link>
