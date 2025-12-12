@@ -34,6 +34,8 @@ export const db = getFirestore(app);
 
 onAuthStateChanged(auth, async (user) => {
     if (user && user.emailVerified) {
+        console.log(user);
+        console.log(auth);
         const idToken = await user.getIdToken();
         setTokenCookie(idToken);
         if (interval) clearInterval(interval);
