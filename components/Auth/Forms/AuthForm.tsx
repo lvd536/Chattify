@@ -76,6 +76,16 @@ export default function AuthForm({ type }: IProps) {
             }
         } else {
             try {
+                if (
+                    !formData.email ||
+                    !formData.password ||
+                    formData.password.length < 6
+                ) {
+                    alert(
+                        "Пожалуйста, заполните все поля и используйте пароль длиной не менее 8 символов."
+                    );
+                    return;
+                }
                 const userCredential = await createUserWithEmailAndPassword(
                     auth,
                     formData.email,
