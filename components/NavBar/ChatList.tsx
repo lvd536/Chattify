@@ -39,6 +39,7 @@ export default function ChatList({ user }: IProps) {
                             participantUid={participant.uid}
                             key={participant.uid}
                             chatId={c.id}
+                            lastSeen={participant.lastSeen}
                         />
                     );
                 })
