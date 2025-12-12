@@ -1,12 +1,17 @@
 import { NextRequest } from "next/server";
 
-const publicPaths = ["/", "/auth"];
+const publicPaths = ["/", "/auth", "/login", "/register", "/forgot-password"];
 
 export function proxy(req: NextRequest) {
     const { pathname } = req.nextUrl;
     const token = req.cookies.get("token")?.value;
 
-    if (pathname === "/" && token) {
+    if (
+        publicPaths.some(
+            (path) => pathname === path || pathname.startsWith(path + "/")
+        ) &&
+        token
+    ) {
         const url = req.nextUrl.clone();
         url.pathname = "/home";
         return Response.redirect(url);
