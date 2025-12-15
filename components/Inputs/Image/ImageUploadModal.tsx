@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { sendImageMessage, uploadImageToCloudinary } from "@/utils/chat";
+import {
+    sendImageMessage as sendChatImageMessage,
+    uploadImageToCloudinary,
+} from "@/utils/chat";
 import Buttons from "./Buttons";
 import Head from "./Head";
 import Body from "./Body";
+import { sendImageMessage as sendGroupImageMessage } from "@/utils/group";
 type Props = {
     chatId: string;
     uid: string;
@@ -11,6 +14,7 @@ type Props = {
     onClose: () => void;
     cloudName?: string;
     uploadPreset?: string;
+    chatType: "chat" | "group";
 };
 
 export default function ImageUploadModal({
@@ -20,6 +24,7 @@ export default function ImageUploadModal({
     cloudName,
     onClose,
     uploadPreset,
+    chatType,
 }: Props) {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [file, setFile] = useState<File | null>(null);
@@ -94,7 +99,9 @@ export default function ImageUploadModal({
                 UPLOAD_PRESET
             );
             setUploading(false);
-            await sendImageMessage(chatId, uid, url);
+            if (chatType === "chat")
+                await sendChatImageMessage(chatId, uid, url);
+            else await sendGroupImageMessage(chatId, uid, url);
             onClose();
         } catch {
             setUploading(false);

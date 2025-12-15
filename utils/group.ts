@@ -9,6 +9,8 @@ import {
     doc,
     writeBatch,
     deleteDoc,
+    arrayRemove,
+    getDoc,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { IUser } from "@/types/IUser";
@@ -174,5 +176,48 @@ export async function deleteGroupHistory(groupId: string) {
         } catch (error) {
             console.error("Error deleting group history: ", error);
         }
+    }
+}
+
+export async function leaveGroup(groupId: string, uid: string): Promise<void> {
+    const confirmed = confirm("Are you sure to leave this group?");
+    if (!confirmed) return;
+
+    const groupRef = doc(db, "groups", groupId);
+
+    await updateDoc(groupRef, {
+        members: arrayRemove(uid),
+        admins: arrayRemove(uid),
+    });
+
+    const snap = await getDoc(groupRef);
+    if (!snap.exists()) return;
+
+    const data = snap.data();
+
+    if (!data.members || data.members.length === 0) {
+        await deleteDoc(groupRef);
+    }
+
+    if (!data.admins || (data.admins.length === 0 && data.members)) {
+        await updateDoc(groupRef, {
+            admins: data.members[0],
+        });
+    }
+}
+
+export async function getGroup(groupId: string) {
+    try {
+        const group = await getDoc(doc(db, "groups", groupId));
+        if (group.exists()) {
+            const groupData = group.data() as IGroup;
+            return groupData;
+        } else {
+            console.error(
+                "Group not found or you don't have access to this group"
+            );
+        }
+    } catch (error) {
+        console.error("Error fetching group data:", error);
     }
 }

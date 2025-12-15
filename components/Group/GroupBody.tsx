@@ -5,11 +5,11 @@ import { useChatMessages } from "@/hooks/useChat";
 import Input from "../Inputs/Input";
 
 interface IProps {
-    chatId: string;
+    groupId: string;
     uid: string;
 }
-export default function ChatBody({ chatId, uid }: IProps) {
-    const { messages, loading, error } = useChatMessages(chatId);
+export default function GroupBody({ groupId, uid }: IProps) {
+    const { messages, loading, error } = useChatMessages(groupId);
     if (loading) return <div className="p-10 text-center">Загрузка...</div>;
     if (error)
         return <div className="text-red-500">Ошибка: {error.message}</div>;
@@ -43,7 +43,7 @@ export default function ChatBody({ chatId, uid }: IProps) {
                     );
                 })}
             </ul>
-            <Input chatId={chatId} uid={uid} chatType="chat" />
+            <Input chatId={groupId} uid={uid} chatType="group" />
         </div>
     );
 }
