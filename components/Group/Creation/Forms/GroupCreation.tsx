@@ -36,20 +36,32 @@ export default function GroupCreation({ uid }: IProps) {
             members: formData.members.filter((member) => member.uid !== uid),
         });
     };
+    function checkImage(url: string, cb: (ok: boolean) => void) {
+        const img = new Image();
+        img.onload = () => cb(true);
+        img.onerror = () => cb(false);
+        img.src = url;
+    }
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const group = {
-            name: formData.name,
-            description: formData.description,
-            members: [...formData.members.map((m) => m.uid), uid],
-            admins: [uid],
-            photoURL: formData.photoURL,
-            lastMessageAt: "",
-            lastMessageText: "",
-        };
-        createGroup(group)
-            .then(() => navigator.push("/home"))
-            .catch(() => console.log("Error while creating group"));
+        checkImage(formData.photoURL, (ok) => {
+            if (!ok && formData.photoURL !== "") {
+                alert("Invalid image url");
+                return;
+            }
+            const group = {
+                name: formData.name,
+                description: formData.description,
+                members: [...formData.members.map((m) => m.uid), uid],
+                admins: [uid],
+                photoURL: formData.photoURL,
+                lastMessageAt: "",
+                lastMessageText: "",
+            };
+            createGroup(group)
+                .then(() => navigator.push("/home"))
+                .catch(() => console.log("Error while creating group"));
+        });
     };
     return (
         <form
