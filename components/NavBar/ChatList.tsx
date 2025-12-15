@@ -1,6 +1,7 @@
 import Chat from "./Chat";
 import { User } from "firebase/auth";
 import { useChatListData } from "@/hooks/useChat";
+import CreateGroupBtn from "./CreateGroupBtn";
 
 interface IProps {
     user: User;
@@ -10,7 +11,7 @@ export default function ChatList({ user }: IProps) {
     const { chats, users, loading, error } = useChatListData(user.uid);
     const success = chats && users && !loading;
     return (
-        <ul className="mt-5 h-full">
+        <ul className="relative mt-5 h-full">
             {success && users.length === chats.length ? (
                 chats.map((c, index) => {
                     const participant = users.find(
@@ -55,6 +56,7 @@ export default function ChatList({ user }: IProps) {
                     Вы еще на начинали чаты!
                 </div>
             )}
+            <CreateGroupBtn uid={user.uid} />
         </ul>
     );
 }
