@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import Logo from "./Logo";
 import SearchButton from "./SearchButton";
-import { getTheme, toggleTheme } from "@/stores/useThemeStore";
 import ThemeToggle from "./ThemeToggle";
 
 interface IProps {
