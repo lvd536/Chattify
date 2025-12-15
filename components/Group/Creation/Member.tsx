@@ -1,7 +1,7 @@
 import IMemberData from "@/types/IMemberData";
 import { Dispatch, SetStateAction } from "react";
-import Avatar from "../Chat/Avatar";
-import Name from "../Chat/Name";
+import Avatar from "../../Chat/Avatar";
+import Name from "../../Chat/Name";
 
 interface IProps {
     displayName: string;

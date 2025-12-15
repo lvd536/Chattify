@@ -1,4 +1,4 @@
-import GroupCreation from "@/components/Group/Forms/GroupCreation";
+import GroupCreation from "@/components/Group/Creation/Forms/GroupCreation";
 import Header from "@/components/Header";
 
 type Params = {

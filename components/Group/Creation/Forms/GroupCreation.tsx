@@ -13,23 +13,7 @@ export default function GroupCreation({ uid }: IProps) {
     const [formData, setFormData] = useState<IMemberData>({
         name: "",
         description: "",
-        members: [
-            {
-                uid: "123123123",
-                displayName: "Nikitka 228",
-                username: "nikitos",
-            },
-            {
-                uid: "22222222",
-                displayName: "Oliweeshka",
-                username: "owwli",
-            },
-            {
-                uid: "212312451253123",
-                displayName: "lvd.",
-                username: "lvdshka",
-            },
-        ],
+        members: [],
         photoURL: "",
     });
     const [searchValue, setSearchValue] = useState("");
@@ -94,8 +78,11 @@ export default function GroupCreation({ uid }: IProps) {
                                 <div className="flex items-center gap-2">
                                     <Avatar
                                         src=""
-                                        alt=""
-                                        name={member.displayName}
+                                        alt="User avatar"
+                                        name={
+                                            member.displayName ||
+                                            member.username
+                                        }
                                     />
                                     <p className="text-sm">
                                         {member.displayName}
