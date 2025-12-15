@@ -5,8 +5,8 @@ import Avatar from "../Avatar";
 import MemberList from "../MemberList";
 import IMemberData from "@/types/IMemberData";
 import Link from "next/link";
-import { IGroup } from "@/types/IGroup";
 import { createGroup } from "@/utils/group";
+import { useRouter } from "next/navigation";
 
 interface IProps {
     uid: string;
@@ -21,6 +21,7 @@ export default function GroupCreation({ uid }: IProps) {
     });
     const [searchValue, setSearchValue] = useState("");
     const [onSearch, setOnSearch] = useState<boolean>(false);
+    const navigator = useRouter();
     const inputStyle =
         "w-full h-10 rounded-lg bg-edit-form-bg border-none text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300";
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,9 +47,9 @@ export default function GroupCreation({ uid }: IProps) {
             lastMessageAt: "",
             lastMessageText: "",
         };
-        createGroup(group).catch(() =>
-            console.log("Error while creating group")
-        );
+        createGroup(group)
+            .then(() => navigator.push("/home"))
+            .catch(() => console.log("Error while creating group"));
     };
     return (
         <form
