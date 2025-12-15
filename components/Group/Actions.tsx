@@ -9,7 +9,7 @@ interface IProps {
 
 export default function Actions({ groupId, uid, isAdmin }: IProps) {
     return (
-        <div className="absolute flex flex-col gap-1 top-16 right-0 w-3/8 min-w-35 h-30 p-2 bg-message-bg rounded-sm z-2 animate-slide-in select-none">
+        <div className="absolute flex flex-col gap-1 top-16 right-0 w-3/8 min-w-35 h-30 p-2 bg-message-bg rounded-sm z-2 select-none">
             {isAdmin && (
                 <>
                     <button
