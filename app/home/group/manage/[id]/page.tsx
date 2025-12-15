@@ -16,7 +16,7 @@ export default async function page({ params }: PageProps) {
     const { id } = await params;
     const [groupId, uid] = id.split("_");
     const group = await getGroup(groupId);
-    const members = await getGroupParticipants(groupId, uid);
+    const members = await getGroupParticipants(groupId);
     return (
         <div className="w-full sm:w-8/12 h-dvh">
             <Header>Group management</Header>
@@ -43,7 +43,11 @@ export default async function page({ params }: PageProps) {
                 description={group?.description || ""}
                 photoURL={group?.photoURL || ""}
             />
-            <MemberList />
+            <MemberList
+                members={members}
+                uid={uid}
+                admins={group?.admins || []}
+            />
         </div>
     );
 }

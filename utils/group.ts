@@ -35,30 +35,22 @@ export async function getUsers(uids: string[]): Promise<IUser[]> {
             users.push(doc.data() as IUser);
         });
     }
-
+    console.log(users);
     return users;
 }
 
 export async function getGroupParticipants(
-    groupId: string,
-    uid: string
+    groupId: string
 ): Promise<IUser[] | null> {
-    const ref = collection(db, "groups");
+    const groupRef = doc(db, "groups", groupId);
 
-    const q = query(ref, where("id", "==", groupId));
-
-    const snap = await getDocs(q);
+    const snap = await getDoc(groupRef);
     if (snap) {
-        if (snap.docs[0]) {
-            const data = snap.docs[0].data();
-            const participants = data.members.find(
-                (p: string) => p !== uid
-            ) as string[];
-            if (participants) {
-                const users = await getUsers(participants);
-                if (users) return users;
-            }
-        }
+        const data = snap.data();
+        if (!data) return null;
+        if (data.members < 1) return null;
+        const users = await getUsers(data.members);
+        if (users) return users;
     }
 
     return null;

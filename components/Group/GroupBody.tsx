@@ -1,15 +1,15 @@
 "use client";
 import { markMessagesAsRead } from "@/utils/chat";
 import Message from "../Message";
-import { useChatMessages } from "@/hooks/useChat";
 import Input from "../Inputs/Input";
+import { useGroupMessages } from "@/hooks/useGroup";
 
 interface IProps {
     groupId: string;
     uid: string;
 }
 export default function GroupBody({ groupId, uid }: IProps) {
-    const { messages, loading, error } = useChatMessages(groupId);
+    const { messages, loading, error } = useGroupMessages(groupId);
     if (loading) return <div className="p-10 text-center">Загрузка...</div>;
     if (error)
         return <div className="text-red-500">Ошибка: {error.message}</div>;

@@ -1,5 +1,6 @@
 "use client";
 import { useGroup } from "@/hooks/useGroup";
+import Link from "next/link";
 import { useState } from "react";
 
 interface IFormData {
@@ -33,7 +34,7 @@ export default function EditForm({
         <>
             {group ? (
                 <form action="" className="px-4 my-4">
-                    <h1 className="self-start font-semibold text-sm text-text/50 border-b border-b-white/20 w-full pb-1 mb-4">
+                    <h1 className="self-start font-semibold text-sm text-text/50 border-b border-b-text/20 w-full pb-1 mb-4">
                         Personal Information
                     </h1>
 
@@ -66,7 +67,7 @@ export default function EditForm({
                     <textarea
                         name="description"
                         id="description"
-                        className={inputStyle + " p-2"}
+                        className={inputStyle + " p-2 min-h-25 max-h-50"}
                         value={formData.name}
                         onChange={(e) => {
                             setFormData({
@@ -94,6 +95,20 @@ export default function EditForm({
                             });
                         }}
                     />
+                    <div className="flex flex-col-reverse sm:flex-row gap-4 items-center justify-end mt-3">
+                        <Link
+                            href={"/home"}
+                            className="flex items-center justify-center h-10 px-6 bg-edit-form-bg hover:bg-edit-form-bg/80 text-text font-bold rounded-lg transition-colors duration-300 focus:ring-edit-form-text/50"
+                        >
+                            Cancel
+                        </Link>
+                        <button
+                            type="submit"
+                            className="h-10 px-6 bg-primary hover:bg-blue-600/70 text-text font-bold rounded-lg shadow-lg shadow-blue-900/20 duration-300 transition-all active:scale-95"
+                        >
+                            Save Changes
+                        </button>
+                    </div>
                 </form>
             ) : loading ? (
                 <>Loading...</>
