@@ -18,7 +18,6 @@ export default function SearchButton() {
                     strokeLinejoin="round"
                 ></g>
                 <g id="SVGRepo_iconCarrier">
-                    {" "}
                     <path
                         fillRule="evenodd"
                         clipRule="evenodd"
@@ -27,14 +26,14 @@ export default function SearchButton() {
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                    ></path>{" "}
+                    />
                     <path
                         d="M17.029 16.5295L19.5 19.0005"
                         stroke="#707991"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                    ></path>{" "}
+                    />
                 </g>
             </svg>
         </button>
