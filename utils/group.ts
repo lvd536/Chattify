@@ -153,7 +153,7 @@ export async function deleteGroupHistory(groupId: string) {
             const messages = await getDocs(
                 query(
                     collection(db, "messages"),
-                    where("chatId", "==", groupId)
+                    where("groupId", "==", groupId)
                 )
             );
             const batch = writeBatch(db);

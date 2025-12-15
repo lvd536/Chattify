@@ -1,6 +1,5 @@
-import { deleteChatHistory } from "@/utils/chat";
 import Trash from "../Trash";
-import { deleteGroup, leaveGroup } from "@/utils/group";
+import { deleteGroup, deleteGroupHistory, leaveGroup } from "@/utils/group";
 
 interface IProps {
     groupId: string;
@@ -22,7 +21,7 @@ export default function Actions({ groupId, uid, isAdmin }: IProps) {
                     </button>
                     <button
                         className="flex items-center gap-2 py-1 px-2 w-full bg-chat-bg hover:bg-chat-bg/80 transition-bg duration-300 rounded-sm"
-                        onClick={() => deleteChatHistory(groupId)}
+                        onClick={() => deleteGroupHistory(groupId)}
                     >
                         <Trash />
                         <p>Delete history</p>
