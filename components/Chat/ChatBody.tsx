@@ -7,8 +7,15 @@ import Input from "../Inputs/Input";
 interface IProps {
     chatId: string;
     uid: string;
+    participantAvatarUrl: string;
+    participantName: string;
 }
-export default function ChatBody({ chatId, uid }: IProps) {
+export default function ChatBody({
+    chatId,
+    uid,
+    participantAvatarUrl,
+    participantName,
+}: IProps) {
     const { messages, loading, error } = useChatMessages(chatId);
     if (loading) return <div className="p-10 text-center">Загрузка...</div>;
     if (error)
@@ -39,6 +46,8 @@ export default function ChatBody({ chatId, uid }: IProps) {
                             id={message.id}
                             read={message.read}
                             type={message.type}
+                            participantAvatarUrl={participantAvatarUrl}
+                            participantName={participantName}
                         />
                     );
                 })}

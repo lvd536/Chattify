@@ -3,16 +3,22 @@ import { markMessagesAsRead } from "@/utils/chat";
 import Message from "../Message";
 import Input from "../Inputs/Input";
 import { useGroupMessages } from "@/hooks/useGroup";
+import { IUserClient } from "@/types/IUserClient";
 
 interface IProps {
     groupId: string;
     uid: string;
+    members: IUserClient[] | null;
 }
-export default function GroupBody({ groupId, uid }: IProps) {
+export default function GroupBody({ groupId, uid, members }: IProps) {
     const { messages, loading, error } = useGroupMessages(groupId);
     if (loading) return <div className="p-10 text-center">Загрузка...</div>;
-    if (error)
-        return <div className="text-red-500">Ошибка: {error.message}</div>;
+    if (error || !members)
+        return (
+            <div className="text-red-500">
+                Ошибка: {error?.message || "Cant get members"}
+            </div>
+        );
     if (messages) {
         const unreadMessagesIds = messages
             .filter((message) => message.senderId !== uid && !message.read)
@@ -30,6 +36,9 @@ export default function GroupBody({ groupId, uid }: IProps) {
                         new Date().toDateString()
                             ? message.createdAt?.toDate().toDateString()
                             : message.createdAt?.toDate().toLocaleTimeString();
+                    const member = members.find(
+                        (m) => m.uid === message.senderId
+                    );
                     return (
                         <Message
                             key={message.id}
@@ -39,6 +48,10 @@ export default function GroupBody({ groupId, uid }: IProps) {
                             id={message.id}
                             read={message.read}
                             type={message.type}
+                            participantAvatarUrl={member?.photoURL || ""}
+                            participantName={
+                                member?.displayName || member?.username || ""
+                            }
                         />
                     );
                 })}

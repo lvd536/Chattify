@@ -119,7 +119,7 @@ export async function sendAudioMessage(
     duration: number
 ) {
     const newMessage = {
-        chatId: groupId,
+        groupId: groupId,
         senderId: senderId,
         text: cloudinaryURL,
         type: "audio",
