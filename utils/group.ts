@@ -11,6 +11,7 @@ import {
     deleteDoc,
     arrayRemove,
     getDoc,
+    setDoc,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { IUser } from "@/types/IUser";
@@ -211,5 +212,31 @@ export async function getGroup(groupId: string) {
         }
     } catch (error) {
         console.error("Error fetching group data:", error);
+    }
+}
+
+export async function updateGroupInfo(
+    groupId: string,
+    formData: {
+        name: string;
+        description: string;
+        photoURL: string;
+    }
+) {
+    try {
+        const groupRef = doc(db, "groups", groupId);
+        try {
+            await setDoc(
+                groupRef,
+                {
+                    ...formData,
+                },
+                { merge: true }
+            );
+        } catch (error) {
+            console.error("Error updating user active status:", error);
+        }
+    } catch (error) {
+        console.error("Error on updating group data:", error);
     }
 }

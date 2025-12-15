@@ -1,6 +1,8 @@
 "use client";
 import { useGroup } from "@/hooks/useGroup";
+import { updateGroupInfo } from "@/utils/group";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface IFormData {
@@ -28,12 +30,31 @@ export default function EditForm({
         description: description || "",
         photoURL: photoURL || "",
     });
+    const navigator = useRouter();
     const inputStyle =
         "w-full h-10 rounded-lg bg-edit-form-bg border border-text/40 text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300 mb-2";
+    function checkImage(url: string, cb: (ok: boolean) => void) {
+        const img = new Image();
+        img.onload = () => cb(true);
+        img.onerror = () => cb(false);
+        img.src = url;
+    }
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        checkImage(formData.photoURL, (ok) => {
+            if (!ok && formData.photoURL !== "") {
+                alert("Invalid image url");
+                return;
+            }
+            updateGroupInfo(groupId, formData)
+                .then(() => navigator.push("/home"))
+                .catch(() => console.log("Error while creating group"));
+        });
+    };
     return (
         <>
             {group ? (
-                <form action="" className="px-4 my-4">
+                <form action="" className="px-4 my-4" onSubmit={handleSubmit}>
                     <h1 className="self-start font-semibold text-sm text-text/50 border-b border-b-text/20 w-full pb-1 mb-4">
                         Personal Information
                     </h1>
@@ -68,7 +89,7 @@ export default function EditForm({
                         name="description"
                         id="description"
                         className={inputStyle + " p-2 min-h-25 max-h-50"}
-                        value={formData.name}
+                        value={formData.description}
                         onChange={(e) => {
                             setFormData({
                                 ...formData,
@@ -87,7 +108,7 @@ export default function EditForm({
                         name="photoURL"
                         id="photoURL"
                         className={inputStyle}
-                        value={formData.name}
+                        value={formData.photoURL}
                         onChange={(e) => {
                             setFormData({
                                 ...formData,
