@@ -1,27 +1,27 @@
-import IMemberData from "@/types/IMemberData";
 import { Dispatch, SetStateAction } from "react";
 import Avatar from "../../Chat/Avatar";
 import Name from "../../Chat/Name";
+import { IHasMembers } from "@/types/IHasMembers";
 
-interface IProps {
+interface IProps<T extends IHasMembers> {
     displayName: string;
     username: string;
     avatarUrl: string;
     uid: string;
-    formData: IMemberData;
-    setFormData: Dispatch<SetStateAction<IMemberData>>;
+    formData: T;
+    setFormData: Dispatch<SetStateAction<T>>;
 }
 
-export default function Member({
+export default function Member<T extends IHasMembers>({
     displayName,
     username,
     avatarUrl,
     uid,
     formData,
     setFormData,
-}: IProps) {
+}: IProps<T>) {
     const handleAddMember = () => {
-        if (formData.members.find((m) => m.uid === uid)) {
+        if (formData.members.some((m) => m.uid === uid)) {
             alert(
                 "This user is already a member of the group. Please choose another user."
             );
@@ -32,10 +32,10 @@ export default function Member({
             displayName,
             username,
         };
-        setFormData({
-            ...formData,
-            members: [...formData.members, newMember],
-        });
+        setFormData((prev) => ({
+            ...prev,
+            members: [...prev.members, newMember],
+        }));
     };
     return (
         <li className="flex items-center gap-4 p-2 justify-between hover:bg-white/2 transition-bg duration-300">

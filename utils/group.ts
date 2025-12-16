@@ -292,3 +292,14 @@ export async function demoteUserFromAdmin(groupId: string, userId: string) {
         console.error("Error kicking user from group:", error);
     }
 }
+
+export async function addMembersToGroup(groupId: string, members: string[]) {
+    try {
+        const groupRef = doc(db, "groups", groupId);
+        await updateDoc(groupRef, {
+            members: arrayUnion(...members),
+        });
+    } catch (error) {
+        console.error("Error adding members to group:", groupId, error);
+    }
+}

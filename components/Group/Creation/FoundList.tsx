@@ -1,21 +1,21 @@
 import { useSearchUsers } from "@/hooks/useChat";
 import Member from "./Member";
-import IMemberData from "@/types/IMemberData";
 import { Dispatch, SetStateAction } from "react";
+import { IHasMembers } from "@/types/IHasMembers";
 
-interface IProps {
+interface IProps<T extends IHasMembers> {
     searchValue: string;
     uid: string;
-    formData: IMemberData;
-    setFormData: Dispatch<SetStateAction<IMemberData>>;
+    formData: T;
+    setFormData: Dispatch<SetStateAction<T>>;
 }
 
-export default function FoundList({
+export default function FoundList<T extends IHasMembers>({
     searchValue,
     uid,
     formData,
     setFormData,
-}: IProps) {
+}: IProps<T>) {
     const { users, loading, error } = useSearchUsers(searchValue, uid);
     return (
         <ul className="sm:block mt-5 h-full">

@@ -15,7 +15,11 @@ export default function MemberList({ members, uid, admins, groupId }: IProps) {
     const isAdmin = admins.includes(uid);
     return (
         <div className="p-4">
-            <Header membersCount={members?.length || 1} />
+            <Header
+                membersCount={members?.length || 1}
+                uid={uid}
+                groupId={groupId}
+            />
             <ul className="flex flex-col gap-2 bg-auth-input-bg/30 rounded-xl">
                 {members?.map((member, index) => {
                     const isMemberAdmin = admins.includes(member.uid);
