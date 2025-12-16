@@ -1,6 +1,5 @@
 import { useSearchUsers } from "@/hooks/useChat";
 import User from "./User";
-import { useEffect } from "react";
 
 interface IProps {
     searchValue: string;

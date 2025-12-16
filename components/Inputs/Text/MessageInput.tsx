@@ -1,20 +1,28 @@
-import { sendTextMessage } from "@/utils/chat";
+import { sendTextMessage as sendChatTextMessage } from "@/utils/chat";
 import { useState } from "react";
 import ImageUploadModal from "../Image/ImageUploadModal";
+import { sendTextMessage as sendGroupTextMessage } from "@/utils/group";
 
 interface IProps {
     chatId: string;
     uid: string;
     setIsAudio: () => void;
+    chatType: "chat" | "group";
 }
 
-export default function MessageInput({ chatId, uid, setIsAudio }: IProps) {
+export default function MessageInput({
+    chatId,
+    uid,
+    setIsAudio,
+    chatType,
+}: IProps) {
     const [message, setMessage] = useState<string>("");
     const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
     const handleMessageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (message.trim()) {
-            sendTextMessage(chatId, uid, message);
+            if (chatType === "chat") sendChatTextMessage(chatId, uid, message);
+            else sendGroupTextMessage(chatId, uid, message);
             setMessage("");
         }
     };
@@ -120,6 +128,7 @@ export default function MessageInput({ chatId, uid, setIsAudio }: IProps) {
                 chatId={chatId}
                 uid={uid}
                 cloudName="dbnjplscn"
+                chatType={chatType}
             />
         </>
     );

@@ -1,21 +1,31 @@
 import { getAudioDurationSeconds } from "@/utils/audio";
-import { sendAudioMessage, uploadAudioToCloudinary } from "@/utils/chat";
+import {
+    sendAudioMessage as sendChatAudioMessage,
+    uploadAudioToCloudinary,
+} from "@/utils/chat";
 import { useState, useRef, useEffect } from "react";
 import Upload from "./Buttons/Upload";
 import Record from "./Buttons/Record";
 import Main from "./Main";
 import Recording from "./Recording";
 import Audio from "./Audio";
+import { sendAudioMessage as sendGroupAudioMessage } from "@/utils/group";
 
 interface IProps {
     chatId: string;
     uid: string;
     setIsAudio: () => void;
+    chatType: "chat" | "group";
 }
 
 const MAX_SECONDS = 30;
 
-export default function AudioInput({ chatId, uid, setIsAudio }: IProps) {
+export default function AudioInput({
+    chatId,
+    uid,
+    setIsAudio,
+    chatType,
+}: IProps) {
     const [isAudioRecorded, setIsAudioRecorded] = useState<boolean>(false);
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const [audioURL, setAudioURL] = useState<string | null>(null);
@@ -174,7 +184,20 @@ export default function AudioInput({ chatId, uid, setIsAudio }: IProps) {
                 "dbnjplscn",
                 "chattify-upload"
             );
-            await sendAudioMessage(chatId, uid, url, recordedDuration || 1);
+            if (chatType === "chat")
+                await sendChatAudioMessage(
+                    chatId,
+                    uid,
+                    url,
+                    recordedDuration || 1
+                );
+            else
+                await sendGroupAudioMessage(
+                    chatId,
+                    uid,
+                    url,
+                    recordedDuration || 1
+                );
             clearAudio();
         } catch (err) {
             console.error("Upload or send failed", err);

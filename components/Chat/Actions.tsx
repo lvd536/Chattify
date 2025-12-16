@@ -1,5 +1,5 @@
 import { deleteChat, deleteChatHistory } from "@/utils/chat";
-import Trash from "./Trash";
+import Trash from "../Trash";
 
 interface IProps {
     chatId: string;

@@ -10,6 +10,7 @@ import { db } from "@/utils/firebase";
 import type { IUser } from "@/types/IUser";
 import type { IMessage } from "@/types/IMessage";
 import { IChat } from "@/types/IChat";
+import { IGroup } from "@/types/IGroup";
 
 export function useSearchUsers(search: string, uid: string) {
     const start = search ? search.toLowerCase() : "";
@@ -104,6 +105,7 @@ export function useParticipant(participantUid: string) {
 }
 
 export function useChatListData(uid: string) {
+    // CHATS
     const chatsQuery = useMemo(
         () =>
             query(
@@ -126,7 +128,31 @@ export function useChatListData(uid: string) {
                 } as IChat)
         );
     }, [chatsSnapshot]);
+    // GROUPS
+    const groupsQuery = useMemo(
+        () =>
+            query(
+                collection(db, "groups"),
+                where("members", "array-contains", uid)
+            ),
+        [uid]
+    );
 
+    const [groupsSnapshot, groupsLoading, groupsError] =
+        useCollection(groupsQuery);
+
+    const groups = useMemo(() => {
+        if (!groupsSnapshot) return undefined;
+
+        return groupsSnapshot.docs.map(
+            (doc) =>
+                ({
+                    id: doc.id,
+                    ...doc.data(),
+                } as IGroup)
+        );
+    }, [groupsSnapshot]);
+    // USERS
     const otherParticipantUids = useMemo(() => {
         if (!chats) return [];
 
@@ -153,8 +179,12 @@ export function useChatListData(uid: string) {
     return {
         chats,
         users,
-        loading: chatsLoading || (Boolean(usersQuery) && usersLoading),
-        error: chatsError ?? usersError ?? null,
+        groups,
+        loading:
+            chatsLoading ||
+            groupsLoading ||
+            (Boolean(usersQuery) && usersLoading),
+        error: chatsError ?? usersError ?? groupsError ?? null,
     };
 }
 
