@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Image from "next/image";
 import { getGroup, getGroupParticipants } from "@/utils/group";
 import MemberList from "@/components/Group/Management/MemberList";
+import Info from "@/components/Group/Management/Info";
 
 type Params = {
     id: string;
@@ -17,6 +18,7 @@ export default async function page({ params }: PageProps) {
     const [groupId, uid] = id.split("_");
     const group = await getGroup(groupId);
     const members = await getGroupParticipants(groupId);
+    const isAdmin = group?.admins.includes(uid);
     return (
         <div className="w-full sm:w-8/12 h-dvh">
             <Header>Group management</Header>
@@ -37,12 +39,16 @@ export default async function page({ params }: PageProps) {
                     </div>
                 )}
             </div>
-            <EditForm
-                groupId={groupId}
-                name={group?.name || ""}
-                description={group?.description || ""}
-                photoURL={group?.photoURL || ""}
-            />
+            {isAdmin ? (
+                <EditForm
+                    groupId={groupId}
+                    name={group?.name || ""}
+                    description={group?.description || ""}
+                    photoURL={group?.photoURL || ""}
+                />
+            ) : (
+                <Info groupId={groupId} />
+            )}
             <MemberList
                 members={members}
                 uid={uid}
