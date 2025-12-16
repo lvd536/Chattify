@@ -12,6 +12,7 @@ import {
     arrayRemove,
     getDoc,
     setDoc,
+    arrayUnion,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { IUser } from "@/types/IUser";
@@ -238,5 +239,56 @@ export async function updateGroupInfo(
         }
     } catch (error) {
         console.error("Error on updating group data:", error);
+    }
+}
+
+export async function kickUserFromGroup(groupId: string, userId: string) {
+    try {
+        const confirmed = confirm("Are you sure to kick this user?");
+        if (confirmed) {
+            const groupRef = doc(db, "groups", groupId);
+            await updateDoc(groupRef, {
+                members: arrayRemove(userId),
+                admins: arrayRemove(userId),
+            });
+        }
+    } catch (error) {
+        console.error("Error kicking user from group:", error);
+    }
+}
+
+export async function promoteUserToAdmin(groupId: string, userId: string) {
+    try {
+        const confirmed = confirm(
+            "Are you sure to promote this user to admin?"
+        );
+        if (confirmed) {
+            const groupRef = doc(db, "groups", groupId);
+            await updateDoc(groupRef, {
+                admins: arrayUnion(userId),
+            });
+        }
+    } catch (error) {
+        console.error(
+            "Error promoting user to admin in group:",
+            groupId,
+            error
+        );
+    }
+}
+
+export async function demoteUserFromAdmin(groupId: string, userId: string) {
+    try {
+        const confirmed = confirm(
+            "Are you sure to demote this user from admin?"
+        );
+        if (confirmed) {
+            const groupRef = doc(db, "groups", groupId);
+            await updateDoc(groupRef, {
+                admins: arrayRemove(userId),
+            });
+        }
+    } catch (error) {
+        console.error("Error kicking user from group:", error);
     }
 }

@@ -4,6 +4,8 @@ import Image from "next/image";
 import { getGroup, getGroupParticipants } from "@/utils/group";
 import MemberList from "@/components/Group/Management/MemberList";
 import Info from "@/components/Group/Management/Info";
+import { IUser } from "@/types/IUser";
+import { IUserClient } from "@/types/IUserClient";
 
 type Params = {
     id: string;
@@ -17,7 +19,19 @@ export default async function page({ params }: PageProps) {
     const { id } = await params;
     const [groupId, uid] = id.split("_");
     const group = await getGroup(groupId);
-    const members = await getGroupParticipants(groupId);
+    const membersRaw = await getGroupParticipants(groupId);
+    const members = membersRaw ? membersRaw.map(serializeUser) : null;
+    function serializeUser(user: IUser): IUserClient {
+        return {
+            uid: user.uid,
+            displayName: user.displayName,
+            username: user.username,
+            photoURL: user.photoURL,
+            email: user.email,
+            createdAt: user.createdAt ? user.createdAt.toMillis() : null,
+            lastSeen: user.lastSeen ? user.lastSeen.toMillis() : null,
+        };
+    }
     const isAdmin = group?.admins.includes(uid);
     return (
         <div className="w-full sm:w-8/12 h-dvh">
@@ -53,6 +67,7 @@ export default async function page({ params }: PageProps) {
                 members={members}
                 uid={uid}
                 admins={group?.admins || []}
+                groupId={groupId}
             />
         </div>
     );
