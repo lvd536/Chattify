@@ -94,9 +94,3 @@ export default function AddMemberModal({ uid, groupId, setIsActive }: IProps) {
         </div>
     );
 }
-function addMembers(
-    groupId: string,
-    members: { uid: string; displayName: string; username: string }[]
-) {
-    throw new Error("Function not implemented.");
-}
