@@ -2,7 +2,7 @@ import EditForm from "@/components/Group/Management/EditForm";
 import Header from "@/components/Header";
 import Image from "next/image";
 import { getGroup, getGroupParticipants } from "@/utils/group";
-import MemberList from "@/components/Group/Management/MemberList";
+import MemberList from "@/components/Group/Management/MemberList/MemberList";
 import Info from "@/components/Group/Management/Info";
 import { IUser } from "@/types/IUser";
 import { IUserClient } from "@/types/IUserClient";
