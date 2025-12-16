@@ -2,7 +2,7 @@
 import { useState } from "react";
 import MemberSearch from "../MemberSearch";
 import Avatar from "../Avatar";
-import MemberList from "../MemberList";
+import FoundList from "../FoundList";
 import IMemberData from "@/types/IMemberData";
 import Link from "next/link";
 import { createGroup } from "@/utils/group";
@@ -143,7 +143,7 @@ export default function GroupCreation({ uid }: IProps) {
                     setSearchValue={setSearchValue}
                 />
                 {onSearch && (
-                    <MemberList
+                    <FoundList
                         searchValue={searchValue}
                         uid={uid}
                         formData={formData}

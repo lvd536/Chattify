@@ -10,7 +10,7 @@ interface IProps {
     setFormData: Dispatch<SetStateAction<IMemberData>>;
 }
 
-export default function MemberList({
+export default function FoundList({
     searchValue,
     uid,
     formData,
