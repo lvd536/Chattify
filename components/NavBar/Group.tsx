@@ -24,7 +24,7 @@ export default function Group({
     return (
         <li>
             <Link
-                href={routes.home.group + `${groupId}_${uid}`}
+                href={routes.home.group.path + `${groupId}_${uid}`}
                 className="flex relative items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300"
             >
                 <div className="relative">

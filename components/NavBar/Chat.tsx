@@ -41,7 +41,7 @@ export default function Chat({
     return (
         <li>
             <Link
-                href={routes.home.chat + `${uid}_${participantUid}`}
+                href={routes.home.chat.path + `${uid}_${participantUid}`}
                 className="flex relative items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300"
             >
                 <div className="relative">
