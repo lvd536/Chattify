@@ -3,6 +3,7 @@ import { useState } from "react";
 import { auth } from "@/utils/firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
 import Link from "next/link";
+import { routes } from "@/utils/consts";
 
 export default function ForgotPasswordForm() {
     const [email, setEmail] = useState<string>("");
@@ -53,7 +54,7 @@ export default function ForgotPasswordForm() {
                 Send reset link
             </button>
             <Link
-                href={"/auth/login"}
+                href={routes.auth.login.path}
                 className="text-sm w-90 flex items-center justify-center text-text hover:text-auth-input transition-text duration-300"
             >
                 Back to login

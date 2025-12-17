@@ -7,6 +7,7 @@ import IMemberData from "@/types/IMemberData";
 import Link from "next/link";
 import { createGroup } from "@/utils/group";
 import { useRouter } from "next/navigation";
+import { routes } from "@/utils/consts";
 
 interface IProps {
     uid: string;
@@ -153,7 +154,7 @@ export default function GroupCreation({ uid }: IProps) {
             </div>
             <div className="pt-6 mt-3 flex flex-col-reverse sm:flex-row gap-4 items-center justify-center border-t border-edit-form-bg">
                 <Link
-                    href={"/home"}
+                    href={routes.home.get.path}
                     className="flex items-center justify-center h-12 px-8 bg-edit-form-bg hover:bg-edit-form-bg/80 text-text font-bold rounded-lg transition-colors duration-300 focus:ring-edit-form-text/50"
                 >
                     Cancel

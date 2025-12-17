@@ -1,8 +1,9 @@
+import { routes } from "@/utils/consts";
 import Link from "next/link";
 
 export default function BackToHome() {
     return (
-        <Link href={"/home"}>
+        <Link href={routes.home.get.path}>
             <svg
                 width="34px"
                 height="34px"

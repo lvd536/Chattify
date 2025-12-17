@@ -7,6 +7,7 @@ import Actions from "./Actions";
 import Link from "next/link";
 import BackToHome from "../Chat/BackToHome";
 import { useGroup } from "@/hooks/useGroup";
+import { routes } from "@/utils/consts";
 
 interface IProps {
     uid: string;
@@ -24,7 +25,10 @@ export default function GroupHead({ uid, groupId }: IProps) {
                     <div className="flex items-center gap-2">
                         <BackToHome />
                         <Link
-                            href={`/home/group/manage/${groupId}_${uid}`}
+                            href={
+                                routes.home.group.manage.path +
+                                `${groupId}_${uid}`
+                            }
                             className="flex items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300"
                         >
                             <Avatar

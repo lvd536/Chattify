@@ -4,6 +4,7 @@ import Details from "../Chat/Details";
 import Name from "../Chat/Name";
 import { useUnreadMessages } from "@/hooks/useChat";
 import { Timestamp } from "firebase/firestore";
+import { routes } from "@/utils/consts";
 
 interface IProps {
     name: string;
@@ -40,7 +41,7 @@ export default function Chat({
     return (
         <li>
             <Link
-                href={`/home/chat/${uid}_${participantUid}`}
+                href={routes.home.chat + `${uid}_${participantUid}`}
                 className="flex relative items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300"
             >
                 <div className="relative">

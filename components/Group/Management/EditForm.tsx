@@ -1,5 +1,6 @@
 "use client";
 import { useGroup } from "@/hooks/useGroup";
+import { routes } from "@/utils/consts";
 import { updateGroupInfo } from "@/utils/group";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -118,7 +119,7 @@ export default function EditForm({
                     />
                     <div className="flex flex-col-reverse sm:flex-row gap-4 items-center justify-end mt-3">
                         <Link
-                            href={"/home"}
+                            href={routes.home.get.path}
                             className="flex items-center justify-center h-10 px-6 bg-edit-form-bg hover:bg-edit-form-bg/80 text-text font-bold rounded-lg transition-colors duration-300 focus:ring-edit-form-text/50"
                         >
                             Cancel

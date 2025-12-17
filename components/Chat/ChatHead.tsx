@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Actions from "./Actions";
 import Link from "next/link";
 import BackToHome from "./BackToHome";
+import { routes } from "@/utils/consts";
 
 interface IProps {
     uid: string;
@@ -54,7 +55,10 @@ export default function ChatHead({ participantUid, uid, chatId }: IProps) {
                     <div className="flex items-center gap-2">
                         <BackToHome />
                         <Link
-                            href={`/home/user/${uid}_${participant.uid}_${chatId}`}
+                            href={
+                                routes.home.user.path +
+                                `${uid}_${participant.uid}_${chatId}`
+                            }
                             className="flex items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300"
                         >
                             <Avatar

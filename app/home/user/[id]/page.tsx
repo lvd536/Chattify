@@ -1,6 +1,7 @@
 import Info from "@/components/Profile/Info";
 import DeleteButton from "@/components/UserProfile/DeleteButton";
 import { getUser } from "@/utils/chat";
+import { routes } from "@/utils/consts";
 import Link from "next/link";
 
 type Params = {
@@ -20,7 +21,7 @@ export default async function page({ params }: PageProps) {
             <Info user={user} />
             <div className="flex items-center justify-center gap-4 mt-6">
                 <Link
-                    href={`/home/chat/${uid}_${participantUid}`}
+                    href={routes.home.chat.path + `${uid}_${participantUid}`}
                     className="flex items-center justify-center font-semibold bg-blue-500 rounded-lg w-40 h-10"
                 >
                     Message

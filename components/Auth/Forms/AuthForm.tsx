@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ensureUserInFirestore } from "@/utils/auth";
+import { routes } from "@/utils/consts";
 
 interface IFormData {
     email: string;
@@ -161,7 +162,7 @@ export default function AuthForm({ type }: IProps) {
             </div>
             {type === "login" && (
                 <Link
-                    href={"/auth/forgot-password"}
+                    href={routes.auth.forgotPassword.path}
                     className="text-sm w-90 flex items-center justify-start text-text hover:text-auth-input transition-text duration-300"
                 >
                     Forgot your password? Reset
@@ -173,7 +174,13 @@ export default function AuthForm({ type }: IProps) {
             >
                 {type === "login" ? "Войти" : "Зарегистрироваться"}
             </button>
-            <Link href={type === "login" ? "register" : "login"}>
+            <Link
+                href={
+                    type === "login"
+                        ? routes.auth.register.path
+                        : routes.auth.login.path
+                }
+            >
                 {type === "login"
                     ? "Нет аккаунта? Зарегистрироваться"
                     : "Уже есть аккаунт? Войти"}

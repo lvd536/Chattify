@@ -2,6 +2,7 @@ import Link from "next/link";
 import Avatar from "../Chat/Avatar";
 import Details from "../Chat/Details";
 import Name from "../Chat/Name";
+import { routes } from "@/utils/consts";
 
 interface IProps {
     name: string;
@@ -23,7 +24,7 @@ export default function Group({
     return (
         <li>
             <Link
-                href={`/home/group/${groupId}_${uid}`}
+                href={routes.home.group + `${groupId}_${uid}`}
                 className="flex relative items-center gap-4 p-2 hover:bg-white/2 transition-bg duration-300"
             >
                 <div className="relative">

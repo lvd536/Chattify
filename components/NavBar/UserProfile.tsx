@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Avatar from "../Chat/Avatar";
 import { useProfile } from "@/hooks/useProfile";
+import { routes } from "@/utils/consts";
 
 interface IProps {
     uid: string;
@@ -30,7 +31,7 @@ export default function UserProfile({ uid }: IProps) {
                             </p>
                         </div>
                     </div>
-                    <Link href={`/home/profile/${user[0].uid}`}>
+                    <Link href={routes.home.profile.path + user[0].uid}>
                         <svg
                             height="25px"
                             width="25px"

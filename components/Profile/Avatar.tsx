@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { auth } from "@/utils/firebase";
 import Link from "next/link";
+import { routes } from "@/utils/consts";
 
 interface IProps {
     src: string;
@@ -28,7 +29,7 @@ export default function Avatar({ src, alt, name }: IProps) {
                 </div>
             )}
             <Link
-                href={"/"}
+                href={routes.home.get.path}
                 className="flex items-center justify-center absolute right-0 bottom-0 bg-audio-player/85 p-1 rounded-full"
                 onClick={handleSignOut}
             >
