@@ -8,6 +8,7 @@ import Link from "next/link";
 import { createGroup } from "@/utils/group";
 import { useRouter } from "next/navigation";
 import { routes } from "@/utils/consts";
+import Input from "@/components/Form/Input";
 
 interface IProps {
     uid: string;
@@ -73,32 +74,26 @@ export default function GroupCreation({ uid }: IProps) {
             <h1 className="mx-auto text-lg font-semibold">
                 Add information for your group
             </h1>
-            <label htmlFor="groupName">Group name</label>
-            <input
-                type="text"
+            <Input
+                labelName="Group name"
                 name="name"
                 id="groupName"
-                className={inputStyle}
                 value={formData.name}
                 onChange={(e) => handleChange(e)}
                 required
             />
-            <label htmlFor="groupBio">Group bio</label>
-            <input
-                type="text"
+            <Input
+                labelName="Group bio"
                 name="description"
                 id="groupBio"
-                className={inputStyle}
                 value={formData.description}
                 onChange={(e) => handleChange(e)}
                 required
             />
-            <label htmlFor="groupAvatar">Group avatar</label>
-            <input
-                type="text"
+            <Input
+                labelName="Group avatar"
                 name="photoURL"
                 id="groupAvatar"
-                className={inputStyle}
                 value={formData.photoURL}
                 onChange={(e) => handleChange(e)}
             />

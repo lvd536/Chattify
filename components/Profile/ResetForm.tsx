@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { routes } from "@/utils/consts";
+import Input from "../Form/Input";
 
 interface IResetForm {
     currentPassword: string;
@@ -83,18 +84,10 @@ export default function ResetForm() {
                     {error}
                 </h1>
             )}
-            <label
-                htmlFor="newPassword"
-                className="self-start text-text text-sm font-medium"
-            >
-                Current password
-            </label>
-            <input
-                type="text"
-                name="newPassword"
-                id="newPassword"
+            <Input
+                labelName="Current password"
+                name="currentPassword"
                 required
-                className="w-full h-10 rounded-lg bg-edit-form-bg border-none text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300"
                 value={formData.currentPassword}
                 onChange={(e) => {
                     setFormData({
@@ -103,18 +96,10 @@ export default function ResetForm() {
                     });
                 }}
             />
-            <label
-                htmlFor="newPassword"
-                className="self-start text-text text-sm font-medium"
-            >
-                New password
-            </label>
-            <input
-                type="text"
+            <Input
+                labelName="New password"
                 name="newPassword"
-                id="newPassword"
                 required
-                className="w-full h-10 rounded-lg bg-edit-form-bg border-none text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300"
                 value={formData.newPassword}
                 onChange={(e) => {
                     setFormData({
@@ -123,18 +108,12 @@ export default function ResetForm() {
                     });
                 }}
             />
-            <label
-                htmlFor="confirmPassword"
-                className="self-start text-text text-sm font-medium text-nowrap"
-            >
-                Confirm password
-            </label>
-            <input
-                type="password"
-                name="confirmPassword"
-                id="confirmPassword"
-                className="w-full h-10 rounded-lg bg-edit-form-bg border-none text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300"
+            <Input
+                labelName="Confirm password"
+                name="photoUrl"
+                required
                 value={formData.confirmPassword}
+                type="password"
                 onChange={(e) => {
                     setFormData({
                         ...formData,

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { auth } from "@/utils/firebase";
 import { routes } from "@/utils/consts";
+import Input from "../Form/Input";
 
 interface IProps {
     user: DocumentData | undefined;
@@ -46,19 +47,10 @@ export default function EditForm({ user }: IProps) {
             <h1 className="self-start font-semibold border-b border-b-white/30 w-full pb-3">
                 Personal Information
             </h1>
-
-            <label
-                htmlFor="displayName"
-                className="self-start text-text text-sm font-medium text-nowrap"
-            >
-                Display Name
-            </label>
-            <input
-                type="text"
+            <Input
+                labelName="Display Name"
                 name="displayName"
-                id="displayName"
                 required
-                className="w-full h-10 rounded-lg bg-edit-form-bg border-none text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300"
                 value={formData.displayName}
                 onChange={(e) => {
                     setFormData({
@@ -90,17 +82,9 @@ export default function EditForm({ user }: IProps) {
                     }}
                 />
             </div>
-            <label
-                htmlFor="displayName"
-                className="self-start text-text text-sm font-medium text-nowrap"
-            >
-                Avatar Url
-            </label>
-            <input
-                type="text"
+            <Input
+                labelName="Avatar Url"
                 name="photoUrl"
-                id="photoUrl"
-                className="w-full h-10 rounded-lg bg-edit-form-bg border-none text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300"
                 value={formData.photoURL}
                 onChange={(e) => {
                     setFormData({
