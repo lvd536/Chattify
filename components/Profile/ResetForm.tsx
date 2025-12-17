@@ -3,20 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { auth } from "@/utils/firebase";
-import {
-    EmailAuthProvider,
-    reauthenticateWithCredential,
-    updatePassword,
-} from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { routes } from "@/utils/consts";
 import Input from "../Form/Input";
-
-interface IResetForm {
-    currentPassword: string;
-    newPassword: string;
-    confirmPassword: string;
-}
+import { IResetForm } from "@/types/IResetForm";
+import { validatePasswordReset } from "@/utils/auth";
 
 export default function ResetForm() {
     const [formData, setFormData] = useState<IResetForm>({
@@ -28,50 +19,7 @@ export default function ResetForm() {
     const navigator = useRouter();
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!auth.currentUser) {
-            setError("User not found");
-            return;
-        } else if (!auth.currentUser.email) return;
-        else if (formData.newPassword !== formData.confirmPassword) {
-            setError("Passwords do not match");
-            return;
-        } else if (formData.newPassword.length < 8) {
-            setError("Password must be at least 8 characters long");
-            return;
-        }
-        const credential = EmailAuthProvider.credential(
-            auth.currentUser.email,
-            formData.currentPassword
-        );
-        reauthenticateWithCredential(auth.currentUser, credential)
-            .then(() => {
-                if (!auth.currentUser) {
-                    setError("User not found");
-                    return;
-                }
-                updatePassword(auth.currentUser, formData.newPassword)
-                    .then(() => {
-                        auth.signOut();
-                        alert(
-                            "Password reset successful. Please log in with your new password."
-                        );
-                        navigator.push("/");
-                    })
-                    .catch((err) => {
-                        console.error(
-                            "Error resetting password:",
-                            err.code,
-                            err.message
-                        );
-                        setError(
-                            "Failed to reset password. Please try again later."
-                        );
-                    });
-            })
-            .catch(() => {
-                setError("Current password is incorrect. Please try again.");
-            });
-        setError(null);
+        validatePasswordReset(auth, formData, navigator, setError);
     };
     return (
         <form

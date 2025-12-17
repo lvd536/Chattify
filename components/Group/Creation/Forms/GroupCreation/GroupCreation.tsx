@@ -1,14 +1,13 @@
 "use client";
 import { useState } from "react";
-import MemberSearch from "../MemberSearch";
-import Avatar from "../Avatar";
-import FoundList from "../FoundList";
+import MemberSearch from "../../MemberSearch";
+import FoundList from "../../FoundList";
 import IMemberData from "@/types/IMemberData";
-import Link from "next/link";
 import { createGroup } from "@/utils/group";
 import { useRouter } from "next/navigation";
-import { routes } from "@/utils/consts";
 import Input from "@/components/Form/Input";
+import MembersToAdd from "./MembersToAdd";
+import GroupCreationActions from "./GroupCreationActions";
 
 interface IProps {
     uid: string;
@@ -24,8 +23,6 @@ export default function GroupCreation({ uid }: IProps) {
     const [searchValue, setSearchValue] = useState("");
     const [onSearch, setOnSearch] = useState<boolean>(false);
     const navigator = useRouter();
-    const inputStyle =
-        "w-full h-10 rounded-lg bg-edit-form-bg border-none text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300";
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({
             ...formData,
@@ -99,40 +96,10 @@ export default function GroupCreation({ uid }: IProps) {
             />
             <div className="flex flex-col gap-2">
                 <h1>Members</h1>
-                <ul className="flex gap-2">
-                    {formData.members.length > 0 ? (
-                        formData.members.map((member) => (
-                            <li
-                                key={member.uid}
-                                className="flex items-center justify-between gap-2 p-2 bg-audio-player w-fit rounded-full"
-                            >
-                                <div className="flex items-center gap-2">
-                                    <Avatar
-                                        src=""
-                                        alt="User avatar"
-                                        name={
-                                            member.displayName ||
-                                            member.username
-                                        }
-                                    />
-                                    <p className="text-sm">
-                                        {member.displayName}
-                                    </p>
-                                </div>
-                                <button
-                                    className="text-xs ml-2 hover:text-text/50 transition-text duration-300"
-                                    onClick={() =>
-                                        handleMemberDelete(member.uid)
-                                    }
-                                >
-                                    x
-                                </button>
-                            </li>
-                        ))
-                    ) : (
-                        <li className="text-sm text-text/50">No members</li>
-                    )}
-                </ul>
+                <MembersToAdd
+                    handleMemberDelete={handleMemberDelete}
+                    members={formData.members}
+                />
                 <MemberSearch
                     searchValue={searchValue}
                     setOnSearch={setOnSearch}
@@ -147,20 +114,7 @@ export default function GroupCreation({ uid }: IProps) {
                     />
                 )}
             </div>
-            <div className="pt-6 mt-3 flex flex-col-reverse sm:flex-row gap-4 items-center justify-center border-t border-edit-form-bg">
-                <Link
-                    href={routes.home.get.path}
-                    className="flex items-center justify-center h-12 px-8 bg-edit-form-bg hover:bg-edit-form-bg/80 text-text font-bold rounded-lg transition-colors duration-300 focus:ring-edit-form-text/50"
-                >
-                    Cancel
-                </Link>
-                <button
-                    type="submit"
-                    className="h-12 px-8 bg-primary hover:bg-blue-600/70 text-text font-bold rounded-lg shadow-lg shadow-blue-900/20 duration-300 transition-all active:scale-95"
-                >
-                    Create group
-                </button>
-            </div>
+            <GroupCreationActions />
         </form>
     );
 }

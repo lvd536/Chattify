@@ -1,4 +1,4 @@
-import EditForm from "@/components/Profile/EditForm";
+import EditForm from "@/components/Profile/EditForm/EditForm";
 import Info from "@/components/Profile/Info";
 import { getProfile } from "@/hooks/useProfile";
 

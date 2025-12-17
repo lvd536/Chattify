@@ -1,4 +1,5 @@
 "use client";
+import Input from "@/components/Form/Input";
 import { useGroup } from "@/hooks/useGroup";
 import { routes } from "@/utils/consts";
 import { updateGroupInfo } from "@/utils/group";
@@ -33,7 +34,7 @@ export default function EditForm({
     });
     const navigator = useRouter();
     const inputStyle =
-        "w-full h-10 rounded-lg bg-edit-form-bg border border-text/40 text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300 mb-2";
+        "w-full h-10 rounded-lg bg-edit-form-bg border-none text-text px-4 focus:ring-1 placeholder:text-edit-form-text transition-all duration-300";
     function checkImage(url: string, cb: (ok: boolean) => void) {
         const img = new Image();
         img.onload = () => cb(true);
@@ -59,19 +60,9 @@ export default function EditForm({
                     <h1 className="self-start font-semibold text-sm text-text/50 border-b border-b-text/20 w-full pb-1 mb-4">
                         Personal Information
                     </h1>
-
-                    <label
-                        htmlFor="name"
-                        className="self-start text-text/80 text-sm font-medium text-nowrap"
-                    >
-                        Name
-                    </label>
-                    <input
-                        type="text"
+                    <Input
+                        labelName="Name"
                         name="name"
-                        id="name"
-                        required
-                        className={inputStyle}
                         value={formData.name}
                         onChange={(e) => {
                             setFormData({
@@ -79,6 +70,20 @@ export default function EditForm({
                                 name: e.target.value,
                             });
                         }}
+                        required
+                    />
+                    <Input
+                        labelName="Avatar"
+                        name="photoURL"
+                        id="groupName"
+                        value={formData.photoURL}
+                        onChange={(e) => {
+                            setFormData({
+                                ...formData,
+                                photoURL: e.target.value,
+                            });
+                        }}
+                        required
                     />
                     <label
                         htmlFor="description"
@@ -95,25 +100,6 @@ export default function EditForm({
                             setFormData({
                                 ...formData,
                                 description: e.target.value,
-                            });
-                        }}
-                    />
-                    <label
-                        htmlFor="photoURL"
-                        className="self-start text-text/80 text-sm font-medium text-nowrap"
-                    >
-                        Avatar
-                    </label>
-                    <input
-                        type="text"
-                        name="photoURL"
-                        id="photoURL"
-                        className={inputStyle}
-                        value={formData.photoURL}
-                        onChange={(e) => {
-                            setFormData({
-                                ...formData,
-                                photoURL: e.target.value,
                             });
                         }}
                     />
