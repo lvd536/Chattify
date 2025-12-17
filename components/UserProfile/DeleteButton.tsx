@@ -1,5 +1,6 @@
 "use client";
 import { deleteChat } from "@/utils/chat";
+import { routes } from "@/utils/consts";
 import { useRouter } from "next/navigation";
 
 interface IProps {
@@ -10,8 +11,8 @@ export default function DeleteButton({ chatId }: IProps) {
     const router = useRouter();
     const handleDelete = () => {
         try {
-            deleteChat(chatId)
-            router.push("/home");
+            deleteChat(chatId);
+            router.push(routes.home.get.path);
         } catch (error) {
             console.error("Error deleting chat:", error);
         }

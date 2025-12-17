@@ -49,7 +49,7 @@ export default function EditForm({
                 return;
             }
             updateGroupInfo(groupId, formData)
-                .then(() => navigator.push("/home"))
+                .then(() => navigator.push(routes.home.get.path))
                 .catch(() => console.log("Error while creating group"));
         });
     };

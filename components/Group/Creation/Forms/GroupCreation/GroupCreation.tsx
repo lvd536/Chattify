@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Input from "@/components/Form/Input";
 import MembersToAdd from "./MembersToAdd";
 import GroupCreationActions from "./GroupCreationActions";
+import { routes } from "@/utils/consts";
 
 interface IProps {
     uid: string;
@@ -58,7 +59,7 @@ export default function GroupCreation({ uid }: IProps) {
                 lastMessageText: "",
             };
             createGroup(group)
-                .then(() => navigator.push("/home"))
+                .then(() => navigator.push(routes.home.get.path))
                 .catch(() => console.log("Error while creating group"));
         });
     };

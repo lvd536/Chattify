@@ -19,6 +19,7 @@ import {
 import { IResetForm } from "@/types/IResetForm";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { FirebaseError } from "firebase/app";
+import { routes } from "./consts";
 
 export const ensureUserInFirestore = async (firebaseUser: UserCredential) => {
     if (!firebaseUser) return;
@@ -136,7 +137,7 @@ export const validateUserAuth = async (
                 return;
             }
             await ensureUserInFirestore(userCredential);
-            router.push("/home");
+            router.push(routes.home.get.path);
         } catch (error) {
             if (error instanceof FirebaseError) {
                 if (
