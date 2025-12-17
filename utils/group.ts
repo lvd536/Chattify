@@ -37,7 +37,6 @@ export async function getUsers(uids: string[]): Promise<IUser[]> {
             users.push(doc.data() as IUser);
         });
     }
-    console.log(users);
     return users;
 }
 

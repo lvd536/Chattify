@@ -60,7 +60,7 @@ export default function GroupCreation({ uid }: IProps) {
             };
             createGroup(group)
                 .then(() => navigator.push(routes.home.get.path))
-                .catch(() => console.log("Error while creating group"));
+                .catch(() => console.error("Error while creating group"));
         });
     };
     return (
